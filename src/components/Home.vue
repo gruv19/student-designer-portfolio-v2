@@ -2,7 +2,7 @@
   <header class="home">
     <Contacts />
     <MainInfo />
-    <Button />
+    <Button link="/#works" text="Учебные работы" />
   </header>
 </template>
 
@@ -12,7 +12,7 @@ import MainInfo from './MainInfo.vue';
 import Button from './Button.vue';
 
 export default {
-  name: 'HelloWorld',
+  name: 'Home',
   components: {
     Contacts, MainInfo, Button,
   },
