@@ -1,0 +1,12 @@
+// Colors
+
+$main: #F5F5F5;
+$dark: #17181A;
+$favourite: #8270DE;
+
+@mixin font($weight) {
+  font-family: 'Jost', sans-serif;
+  font-weight: $weight;
+}
+
+$desktop: 1000px;
