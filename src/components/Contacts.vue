@@ -1,6 +1,7 @@
 <template>
   <div class="contacts">
-    <ul class="contacts__list">
+    <div class="contacts__overlay" @click.prevent="hideContactsHandler" v-if="menuActivator"></div>
+    <ul class="contacts__list" :class="menuActivator ? 'contacts__list--active' : ''">
       <li class="contacts__item">
         <a class="contacts__link" href="https://t.me/evg_GRU" target="_blank">Telegram</a>
       </li>
@@ -17,11 +18,30 @@
         <a class="contacts__link" href="https://www.facebook.com/profile.php?id=100007436739623" target="_blank">Facebook</a>
       </li>
     </ul>
+    <div class="contacts__button">
+      <Button link="#" text="Контакты" @click.prevent="showContactsHandler" />
+    </div>
   </div>
 </template>
 
 <script>
+import Button from '@/components/Button.vue';
+
 export default {
   name: 'Contacts',
+  components: { Button },
+  data() {
+    return {
+      menuActivator: false,
+    };
+  },
+  methods: {
+    showContactsHandler() {
+      this.menuActivator = true;
+    },
+    hideContactsHandler() {
+      this.menuActivator = false;
+    },
+  },
 };
 </script>
