@@ -1,0 +1,23 @@
+.main-info__name {
+  @include font(600);
+  text-align: center;
+  font-size: 2.8rem;
+  line-height: 3.8rem;
+  @media (min-width: $desktop) {
+    font-size: 10rem;
+    line-height: 14.4rem;
+  }
+}
+
+.main-info__prof {
+  @include font(600);
+  text-align: center;
+  font-size: 1.8rem;
+  line-height: 2.2rem;
+  margin-top: 15px;
+  @media (min-width: $desktop) {
+    font-size: 2.4rem;
+    line-height: 3.5rem;
+    @include font(500);
+  }
+}
