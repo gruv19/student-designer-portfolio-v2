@@ -1,5 +1,5 @@
 <template>
-  <a class="button" :href="link">{{ text }}</a>
+  <a class="button" :href="link" :class="`button--${modifier}`">{{ text }}</a>
 </template>
 
 <script>
@@ -13,6 +13,9 @@ export default {
     text: {
       type: String,
       required: true,
+    },
+    modifier: {
+      type: String,
     },
   },
 };
