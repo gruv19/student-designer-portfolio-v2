@@ -1,0 +1,20 @@
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 132px;
+  width: 132px;
+  padding: 8px 11px 9px;
+  @include font(500);
+  font-size: 1.4rem;
+  line-height: 2rem;
+  border: 2px solid $favourite;
+  background-color: transparent;
+  border-radius: 20px;
+  color: #FFFFFF;
+  &--work-link {
+    border: none;
+    background-color: #FFFFFF;
+    color: #000000;
+  }
+}
