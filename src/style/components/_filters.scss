@@ -1,0 +1,42 @@
+.filters {
+  padding: 30px 10px 50px;
+  @media (min-width: $desktop) {
+    padding: 130px 10px 70px;
+  }
+}
+
+.filters__list {
+  display: flex;
+  justify-content: center;
+}
+
+.filters__item {
+  & + & {
+    margin-left: 40px;
+  }
+  @media (min-width: $desktop) {
+    & + & {
+      margin-left: 50px;
+    }
+  }
+}
+
+.filters__button {
+  border: none;
+  background-color: transparent;
+  @include font(400);
+  color: #FFFFFF;
+  font-size: 1.6rem;
+  line-height: 1.9rem;
+  padding: 6px;
+  cursor: pointer;
+  &--active {
+    color: $favourite;
+  }
+  @media (min-width: $desktop) {
+    min-width: 140px;
+    font-size: 1.8rem;
+    line-height: 2.6rem;
+    padding: 12px 40px;
+  }
+}
