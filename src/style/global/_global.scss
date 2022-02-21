@@ -3,6 +3,7 @@ html {
   box-sizing: border-box;
   @include font(400);
   color: $main;
+  scroll-behavior: smooth;
 }
 
 *, *::before, *::after {

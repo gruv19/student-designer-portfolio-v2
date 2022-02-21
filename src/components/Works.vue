@@ -1,7 +1,11 @@
 <template>
-  <main class="works">
-    <Filters />
-    <Card />
+  <main class="works" id="works">
+    <div class="works__filters">
+      <Filters />
+    </div>
+    <div class="works__cards">
+      <Card />
+    </div>
   </main>
 </template>
 
