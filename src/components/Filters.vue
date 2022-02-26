@@ -20,15 +20,13 @@
 </template>
 
 <script>
+import getTypes from '@/mock/types';
+
 export default {
   name: 'Filters',
   data() {
     return {
-      types: [
-        { title: 'all', description: 'Все' },
-        { title: 'website', description: 'Сайты' },
-        { title: 'mobile', description: 'Моб.приложения' },
-      ],
+      types: [],
       activeFilter: 'all',
     };
   },
@@ -36,6 +34,9 @@ export default {
     changeActiveFilter(filterTitle) {
       this.activeFilter = filterTitle;
     },
+  },
+  mounted() {
+    this.types = getTypes();
   },
 };
 </script>
