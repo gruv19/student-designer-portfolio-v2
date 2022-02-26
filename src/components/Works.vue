@@ -5,8 +5,9 @@
     </div>
     <ul class="works__cards">
       <li class="works__card"
-        v-for="work in works"
+        v-for="(work, idx) in works"
         :key="work.id"
+        :class="{'works__card--right-justified': idx >= works.length / 2}"
       >
         <Card
           :id="work.id"

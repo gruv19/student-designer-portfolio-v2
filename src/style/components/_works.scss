@@ -12,6 +12,7 @@
 .works__cards {
   @media (min-width: $big-desktop) {
     max-width: 1590px;
+    padding: 0 20px;
     margin: 0 auto;
     column-count:2;
   }
@@ -22,8 +23,13 @@
     margin-top: 50px;
   }
   @media (min-width: $big-desktop) {
+    display: flex;
+    justify-content: flex-start;
     & + & {
       margin-top: 150px;
+    }
+    &--right-justified {
+      justify-content: flex-end;
     }
   }
 }
