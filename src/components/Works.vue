@@ -3,19 +3,22 @@
     <div class="works__filters">
       <Filters />
     </div>
-    <div class="works__cards">
-      <Card
+    <ul class="works__cards">
+      <li class="works__card"
         v-for="work in works"
         :key="work.id"
-        :id="work.id"
-        :type="work.type"
-        :mainImage="work.main_image"
-        :title="work.title"
-        :subtitle="work.subtitle"
-        :task="work.task"
-        :link="work.link"
-      />
-    </div>
+      >
+        <Card
+          :id="work.id"
+          :type="work.type"
+          :mainImage="work.main_image"
+          :title="work.title"
+          :subtitle="work.subtitle"
+          :task="work.task"
+          :link="work.link"
+        />
+      </li>
+    </ul>
   </main>
 </template>
 

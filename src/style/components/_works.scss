@@ -1,0 +1,29 @@
+.works {
+  margin: 0 auto;
+}
+
+.works__filters {
+  padding: 30px 10px 50px;
+  @media (min-width: $desktop) {
+    padding: 130px 10px 70px;
+  }
+}
+
+.works__cards {
+  @media (min-width: $big-desktop) {
+    max-width: 1590px;
+    margin: 0 auto;
+    column-count:2;
+  }
+}
+
+.works__card {
+  & + & {
+    margin-top: 50px;
+  }
+  @media (min-width: $big-desktop) {
+    & + & {
+      margin-top: 150px;
+    }
+  }
+}
