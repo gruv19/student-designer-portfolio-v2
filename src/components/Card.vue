@@ -1,14 +1,19 @@
 <template>
   <article class="card">
-      <img src="https://imgholder.ru/720x480/8270DE/F5F5F5.jpg&text=work_card&font=arial" alt="Изображение работы" class="card__image">
-      <h3 class="card__title">Slonum</h3>
-      <!-- <a href="/work_id" class="button">Посмотреть</a> -->
-      <Button link="/work_id" text="Посмотреть" modifier="work-link" />
-      <p class="card__subtitle">Тестовое задание</p>
-      <p class="card__task">
-        Задача: Landing page для участия в олимпиаде по математике, учиттывая ТЗ.
-      </p>
-      <a href="http://zhenyagru.tilda.ws/rynzhukfolio" class="card__link">Открыть в браузере</a>
+      <div class="card__header">
+        <img :src="mainImage" alt="Изображение работы" class="card__image">
+        <div class="card__main-info">
+          <h3 class="card__title">{{ title }}</h3>
+          <Button :link="id" text="Посмотреть" modifier="work-link" />
+        </div>
+      </div>
+      <div class="card__info">
+        <p class="card__subtitle">{{ subtitle }}</p>
+        <p class="card__task">
+          {{ task }}
+        </p>
+        <a v-if="link" :href="link" class="card__link">Открыть в браузере</a>
+      </div>
     </article>
 </template>
 
@@ -19,6 +24,40 @@ export default {
   name: 'Card',
   components: {
     Button,
+  },
+  props: {
+    id: {
+      type: Number,
+      required: true,
+    },
+    type: {
+      type: Object,
+      required: true,
+    },
+    mainImage: {
+      type: String,
+      required: true,
+    },
+    title: {
+      type: String,
+      required: true,
+    },
+    subtitle: {
+      type: String,
+      required: true,
+    },
+    task: {
+      type: String,
+      required: true,
+    },
+    link: {
+      type: String,
+    },
+  },
+
+  mounted() {
+    console.log(this.id);
+    console.log(this.type);
   },
 };
 </script>

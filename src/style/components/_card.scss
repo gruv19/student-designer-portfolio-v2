@@ -1,0 +1,70 @@
+.card {
+  max-width: 720px;
+  width: 100%;
+  border-bottom: 2px solid #F5F5F5;
+  margin: 0 auto;
+  @media (min-width: $big-desktop) {
+    border: none;
+    margin: 0;
+  }
+}
+
+.card__header {
+  position: relative;
+}
+
+.card__main-info {
+  position: absolute;
+  bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 20px;
+  align-items: flex-end;
+  @media (min-width: $desktop) {
+    padding: 0 30px;
+  }
+}
+
+.card__title {
+  @include font(600);
+  font-size: 2.8rem;
+  line-height: 3.1rem;
+  color: $main;
+  @media (min-width: $desktop) {
+    font-size: 4rem;
+    line-height: 4.4rem;
+  }
+}
+
+.card__info {
+  padding: 15px 20px 20px;
+  @include font(400);
+  font-size: 1.6rem;
+  line-height: 2.3rem;
+  color: $main;
+  @media (min-width: $desktop) {
+    padding: 30px;
+    font-size: 2rem;
+    line-height: 2.9rem;
+  }
+}
+
+.card__task {
+  word-break: break-word;
+  margin-top: 30px;
+}
+
+.card__link {
+  @include font(400);
+  font-size: 1.6rem;
+  line-height: 2.3rem;
+  color: $main;
+  display: inline-block;
+  margin-top: 30px;
+  text-decoration: underline;
+  @media (min-width: $desktop) {
+    font-size: 2rem;
+    line-height: 2.9rem;
+  }
+}
