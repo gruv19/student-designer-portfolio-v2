@@ -19,7 +19,7 @@ const workGenerate = () => {
   const workObject = {
     id,
     type: workTypes[getRandom(0, workTypes.length - 1)],
-    main_image: `https://imgholder.ru/720x480/8270DE/F5F5F5.jpg&text=${id}&font=arial`,
+    mainImage: `https://imgholder.ru/720x480/8270DE/F5F5F5.jpg&text=${id}&font=arial`,
     title: textGenerate(getRandom(4, 10)),
     subtitle: textGenerate(getRandom(10, 20)),
     task: textGenerate(getRandom(70, 390)),
