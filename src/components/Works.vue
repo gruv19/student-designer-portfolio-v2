@@ -5,14 +5,14 @@
     </div>
     <ul class="works__cards">
       <li class="works__card"
-        v-for="(work, idx) in works"
+        v-for="(work, idx) in filteredWorks"
         :key="work.id"
         :class="{'works__card--right-justified': idx >= works.length / 2}"
       >
         <Card
           :id="work.id"
           :type="work.type"
-          :mainImage="work.main_image"
+          :mainImage="work.mainImage"
           :title="work.title"
           :subtitle="work.subtitle"
           :task="work.task"
@@ -39,8 +39,20 @@ export default {
       works: [],
     };
   },
-  mounted() {
-    this.works = worksGenerate(4);
+  computed: {
+    filteredWorks() {
+      if (this.$store.state.activeFilter === '') {
+        return this.works;
+      }
+      return this.works.filter((work) => work.type.title === this.$store.state.activeFilter);
+    },
+  },
+  async mounted() {
+    if (process.env.NODE_ENV === 'development') {
+      this.works = worksGenerate(10);
+    } else {
+      this.works = await this.$store.dispatch('fetchWorks');
+    }
   },
 };
 </script>
