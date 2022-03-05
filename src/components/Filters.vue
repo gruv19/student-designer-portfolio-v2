@@ -1,6 +1,15 @@
 <template>
   <div class="filters">
     <ul class="filters__list">
+      <li class="filters__item">
+        <button
+          class="filters__button"
+          :class="{ 'filters__button--active': activeFilter === '' }"
+          @click.prevent="changeActiveFilter('')"
+        >
+          Все
+        </button>
+      </li>
       <li
         class="filters__item"
         v-for="type in types"
@@ -27,16 +36,24 @@ export default {
   data() {
     return {
       types: [],
-      activeFilter: 'all',
     };
+  },
+  computed: {
+    activeFilter() {
+      return this.$store.state.activeFilter;
+    },
   },
   methods: {
     changeActiveFilter(filterTitle) {
-      this.activeFilter = filterTitle;
+      this.$store.commit('setActiveFilter', filterTitle);
     },
   },
-  mounted() {
-    this.types = getTypes();
+  async mounted() {
+    if (process.env.NODE_ENV === 'development') {
+      this.types = getTypes();
+    } else {
+      this.types = await this.$store.dispatch('fetchWorkTypes');
+    }
   },
 };
 </script>
