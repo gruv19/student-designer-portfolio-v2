@@ -2,7 +2,7 @@
 node_modules
 /dist
 /public/api
-/src/assets/images/works
+/public/work_images
 
 
 # local env files
