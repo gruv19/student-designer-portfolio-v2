@@ -1,5 +1,9 @@
 .works {
   margin: 0 auto;
+  padding-bottom: 32px;
+  @media (min-width: $desktop) {
+    padding-bottom: 70px;
+  }
 }
 
 .works__filters {
@@ -31,5 +35,14 @@
     &--right-justified {
       justify-content: flex-end;
     }
+  }
+}
+
+.works__load-more-btn {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0 32px;
+  @media (min-width: $desktop) {
+    margin: 70px 0 0;
   }
 }
