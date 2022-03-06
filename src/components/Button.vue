@@ -1,5 +1,5 @@
 <template>
-  <a class="button" :href="link" :class="`button--${modifier}`">{{ text }}</a>
+  <a class="button" :href="link" :class="modifier ? `button--${modifier}` : '' ">{{ text }}</a>
 </template>
 
 <script>
