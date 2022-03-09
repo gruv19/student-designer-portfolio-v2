@@ -16,7 +16,11 @@ export default createStore({
   },
   actions: {
     async fetchWorkCounts({ commit }) {
-      const data = await fetch('/api/getWorksCount.php');
+      let uri = '/api/getWorksCount.php';
+      if (process.env.NODE_ENV === 'development') {
+        uri = 'http://design-student-vue-2/api/getWorksCount.php';
+      }
+      const data = await fetch(uri);
       const result = await data.json();
       const workCounts = {};
       result.forEach((item) => {
@@ -27,8 +31,13 @@ export default createStore({
       commit('setWorkCounts', workCounts);
     },
     async fetchWorkTypes() {
-      const data = await fetch('/api/getWorkTypes.php');
+      let uri = '/api/getWorkTypes.php';
+      if (process.env.NODE_ENV === 'development') {
+        uri = 'http://design-student-vue-2/api/getWorkTypes.php';
+      }
+      const data = await fetch(uri);
       const result = await data.json();
+      console.log(result);
       return result;
     },
   },

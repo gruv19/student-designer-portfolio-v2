@@ -4,8 +4,8 @@
       <li class="filters__item">
         <button
           class="filters__button"
-          :class="{ 'filters__button--active': activeFilter === '' }"
-          @click.prevent="changeActiveFilter('')"
+          :class="{ 'filters__button--active': activeFilter === 'all' }"
+          @click.prevent="changeActiveFilter('all')"
         >
           Все
         </button>
@@ -29,7 +29,6 @@
 </template>
 
 <script>
-import getTypes from '@/mock/types';
 
 export default {
   name: 'Filters',
@@ -46,14 +45,11 @@ export default {
   methods: {
     changeActiveFilter(filterTitle) {
       this.$store.commit('setActiveFilter', filterTitle);
+      this.$emit('filterChanged', filterTitle);
     },
   },
   async mounted() {
-    if (process.env.NODE_ENV === 'development') {
-      this.types = getTypes();
-    } else {
-      this.types = await this.$store.dispatch('fetchWorkTypes');
-    }
+    this.types = await this.$store.dispatch('fetchWorkTypes');
   },
 };
 </script>
