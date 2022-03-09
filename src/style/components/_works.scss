@@ -13,28 +13,27 @@
   }
 }
 
-.works__cards {
+.works__cards--mobile {
+  @media (min-width: $big-desktop) {
+    display: none;
+  }
+}
+
+.works__cards--desktop {
+  display: none;
   @media (min-width: $big-desktop) {
     max-width: 1590px;
     padding: 0 20px;
     margin: 0 auto;
-    column-count:2;
+    display: flex;
+    justify-content: space-between;
   }
 }
 
-.works__card {
-  & + & {
-    margin-top: 50px;
-  }
+.works__card + .works__card {
+  margin-top: 50px;
   @media (min-width: $big-desktop) {
-    display: flex;
-    justify-content: flex-start;
-    & + & {
-      margin-top: 150px;
-    }
-    &--right-justified {
-      justify-content: flex-end;
-    }
+    margin-top: 150px;
   }
 }
 
