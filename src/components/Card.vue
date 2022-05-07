@@ -4,7 +4,11 @@
         <img :src="mainImage" alt="Изображение работы" class="card__image">
         <div class="card__main-info">
           <h3 class="card__title">{{ title }}</h3>
-          <Button :link="id" text="Посмотреть" modifier="work-link" />
+          <Button
+            text="Посмотреть"
+            modifier="work-link"
+            @click.prevent="getWorkImages(id)"
+          />
         </div>
       </div>
       <div class="card__info">
@@ -54,10 +58,19 @@ export default {
       type: String,
     },
   },
-
-  mounted() {
-    console.log(this.id);
-    console.log(this.type);
+  data() {
+    return {
+      images: [],
+    };
+  },
+  methods: {
+    async getWorkImages(id) {
+      await this.$store.dispatch('fetchWorkImages', id);
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    },
   },
 };
 </script>
