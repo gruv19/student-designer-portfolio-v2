@@ -1,5 +1,6 @@
 <template>
   <div class="main">
+    <WorkPresentation />
     <Home />
     <Works />
   </div>
@@ -8,11 +9,14 @@
 <script>
 import Home from '@/components/Home.vue';
 import Works from '@/components/Works.vue';
+import WorkPresentation from '@/components/WorkPresentation.vue';
 
 export default {
   name: 'Main',
   components: {
-    Home, Works,
+    Home,
+    Works,
+    WorkPresentation,
   },
 };
 </script>
