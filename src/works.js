@@ -15,7 +15,7 @@ async function fetchWorkImages(id) {
   }
   const data = await fetch(uri);
   const result = await data.json();
-  return result;
+  return JSON.parse(result.images);
 }
 
 export {

@@ -5,6 +5,7 @@ export default createStore({
   state: {
     activeFilter: 'all',
     workCounts: {},
+    workImages: [],
   },
   mutations: {
     setActiveFilter(state, filterName) {
@@ -12,6 +13,9 @@ export default createStore({
     },
     setWorkCounts(state, workCounts) {
       state.workCounts = workCounts;
+    },
+    setWorkImages(state, workImages) {
+      state.workImages = workImages;
     },
   },
   actions: {
@@ -37,8 +41,20 @@ export default createStore({
       }
       const data = await fetch(uri);
       const result = await data.json();
-      console.log(result);
       return result;
+    },
+    async fetchWorkImages({ commit }, id) {
+      let uri = `/api/getWorkData.php?work_id=${id}`;
+      if (process.env.NODE_ENV === 'development') {
+        uri = `http://design-student-vue-2/api/getWorkData.php?work_id=${id}`;
+      }
+      const data = await fetch(uri);
+      const result = await data.json();
+      const workImages = result.images ? JSON.parse(result.images) : [];
+      commit('setWorkImages', workImages);
+    },
+    clearWorkImages({ commit }) {
+      commit('setWorkImages', []);
     },
   },
   modules: {
