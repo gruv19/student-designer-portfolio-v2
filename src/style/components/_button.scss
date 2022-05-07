@@ -12,9 +12,14 @@
   background-color: transparent;
   border-radius: 20px;
   color: #FFFFFF;
+  cursor: pointer;
   &--work-link {
     border: none;
     background-color: #FFFFFF;
     color: #000000;
+  }
+  &--close {
+    border: none;
+    background-color: $favourite;
   }
 }
