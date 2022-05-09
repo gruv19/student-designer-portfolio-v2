@@ -3,10 +3,9 @@
   justify-content: center;
   align-items: center;
   min-width: 132px;
-  width: 132px;
   padding: 8px 11px 9px;
   @include font(500);
-  font-size: 1.4rem;
+  font-size: 1.8rem;
   line-height: 2rem;
   border: 2px solid $favourite;
   background-color: transparent;
@@ -17,6 +16,12 @@
     border: none;
     background-color: #FFFFFF;
     color: #000000;
+  }
+  &--work-link:hover {
+    color: $favourite;
+  }
+  &--work-link:active {
+    color: $favourite;
   }
   &--close {
     border: none;
