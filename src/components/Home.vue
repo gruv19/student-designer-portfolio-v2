@@ -22,7 +22,7 @@
         <MainInfo />
       </div>
       <div class="home__button">
-        <Button link="/#works" text="Учебные работы" />
+        <Button link="/#works" text="Портфолио" />
       </div>
     </div>
   </header>
