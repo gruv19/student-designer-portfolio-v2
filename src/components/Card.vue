@@ -16,7 +16,7 @@
         <p class="card__task">
           {{ task }}
         </p>
-        <a v-if="link" :href="link" class="card__link">Открыть в браузере</a>
+        <a v-if="link" :href="link" class="card__link" target="_blank">Открыть в браузере</a>
       </div>
     </article>
 </template>
