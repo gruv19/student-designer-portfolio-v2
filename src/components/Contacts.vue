@@ -18,18 +18,18 @@
         <a class="contacts__link" href="https://www.facebook.com/profile.php?id=100007436739623" target="_blank">Facebook</a>
       </li> -->
     </ul>
-    <div class="contacts__button">
+    <!-- <div class="contacts__button">
       <Button link="#" text="Контакты" @click.prevent="showContactsHandler" />
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
-import Button from '@/components/Button.vue';
+// import Button from '@/components/Button.vue';
 
 export default {
   name: 'Contacts',
-  components: { Button },
+  // components: { Button },
   data() {
     return {
       menuActivator: false,

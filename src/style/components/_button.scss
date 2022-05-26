@@ -2,29 +2,24 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 180px;
-  padding: 7px 11px 8px;
+  min-width: 144px;
+  padding: 8px 11px 9px;
   @include font(400);
-  font-size: 2rem;
-  line-height: 2.9rem;
+  font-size: 1.6rem;
+  line-height: 2.3rem;
   border: 2px solid $favourite;
   background-color: $dark;
   border-radius: 32px;
   color: #FFFFFF;
   cursor: pointer;
-  &--work-link {
-    border: 2px solid $favourite;
-    background-color: $dark;
-    color: #FFFFFF;
-  }
-  &--work-link:hover {
+  &:hover {
     background-color: $favourite;
   }
-  &--work-link:active {
-    color: $favourite;
-  }
-  &--close {
-    border: none;
-    background-color: $favourite;
+  @media (min-width: $desktop) {
+    min-width: 180px;
+    padding: 7px 11px 8px;
+    font-size: 2rem;
+    line-height: 2.9rem;
+    max-height: 44px;
   }
 }
