@@ -6,6 +6,7 @@ export default createStore({
     activeFilter: 'all',
     workCounts: {},
     workImages: [],
+    scrollPosition: 0,
   },
   mutations: {
     setActiveFilter(state, filterName) {
@@ -16,6 +17,9 @@ export default createStore({
     },
     setWorkImages(state, workImages) {
       state.workImages = workImages;
+    },
+    setScrollPosition(state, scrollPosition) {
+      state.scrollPosition = scrollPosition;
     },
   },
   actions: {

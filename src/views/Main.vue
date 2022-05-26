@@ -18,5 +18,11 @@ export default {
     Works,
     WorkPresentation,
   },
+  activated() {
+    window.scrollTo({
+      top: this.$store.state.scrollPosition,
+      behavior: 'instant',
+    });
+  },
 };
 </script>
