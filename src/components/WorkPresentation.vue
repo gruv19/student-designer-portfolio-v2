@@ -1,7 +1,7 @@
 <template>
   <div class="work-presentation" v-if="workImages.length" @click.self="closePresentation">
     <div class="work-presentation__button">
-      <Button text="Закрыть" @click.prevent="closePresentation" modifier="close" />
+      <Button text="Закрыть" @click.prevent="closePresentation" modifier="work-link" />
     </div>
     <div class="work-presentation__image-container">
       <img
@@ -28,11 +28,11 @@ export default {
   methods: {
     closePresentation() {
       this.$store.dispatch('clearWorkImages');
-      window.scrollTo({
-        top: window.innerHeight,
-        behavior: 'smooth',
-      });
+      this.$router.push('/');
     },
+  },
+  async mounted() {
+    await this.$store.dispatch('fetchWorkImages', this.$route.params.id);
   },
 };
 </script>

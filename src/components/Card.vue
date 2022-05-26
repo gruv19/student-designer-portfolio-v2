@@ -7,7 +7,7 @@
           <Button
             text="Посмотреть"
             modifier="work-link"
-            @click.prevent="getWorkImages(id)"
+            @click.prevent="openWorkPresentation(id)"
           />
         </div>
       </div>
@@ -64,12 +64,10 @@ export default {
     };
   },
   methods: {
-    async getWorkImages(id) {
-      await this.$store.dispatch('fetchWorkImages', id);
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth',
-      });
+    openWorkPresentation(id) {
+      const scrollPosition = document.documentElement.getBoundingClientRect().top * (-1);
+      this.$store.commit('setScrollPosition', scrollPosition);
+      this.$router.push(`/work/${id}`);
     },
   },
 };
