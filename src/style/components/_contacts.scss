@@ -44,9 +44,9 @@
 
 .contacts__link {
   display: inline-block;
-  @include font(300);
-  font-size: 1.8rem;
-  line-height: 2.6rem;
+  @include font(400);
+  font-size: 2rem;
+  line-height: 2.9rem;
 }
 
 .contacts__button {

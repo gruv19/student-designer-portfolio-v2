@@ -2,23 +2,23 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 132px;
-  padding: 8px 11px 9px;
-  @include font(500);
-  font-size: 1.8rem;
-  line-height: 2rem;
+  min-width: 180px;
+  padding: 7px 11px 8px;
+  @include font(400);
+  font-size: 2rem;
+  line-height: 2.9rem;
   border: 2px solid $favourite;
-  background-color: transparent;
-  border-radius: 20px;
+  background-color: $dark;
+  border-radius: 32px;
   color: #FFFFFF;
   cursor: pointer;
   &--work-link {
-    border: none;
-    background-color: #FFFFFF;
-    color: #000000;
+    border: 2px solid $favourite;
+    background-color: $dark;
+    color: #FFFFFF;
   }
   &--work-link:hover {
-    color: $favourite;
+    background-color: $favourite;
   }
   &--work-link:active {
     color: $favourite;

@@ -59,7 +59,7 @@
       class="works__load-more-btn"
       v-if="works.length < worksCount[activeFilter]"
     >
-      <Button text="Загрузить еще" @click="loadMoreWorks" />
+      <Button text="Загрузить еще" @click="loadMoreWorks" modifier="work-link" />
     </div>
   </main>
 </template>
