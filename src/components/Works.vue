@@ -37,6 +37,7 @@
           />
         </div>
       </div>
+      <div class="works__column works__column--center"></div>
       <div class="works__column works__column--right">
         <div
           class="works__card"

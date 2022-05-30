@@ -9,6 +9,8 @@ $favourite: #8270DE;
   font-weight: $weight;
 }
 
-$desktop: 1000px;
-$big-desktop: 1500px;
-$max-desktop: 1919px;
+$min-content: 320px;
+$max-content: 1366px;
+
+$tablet: 720px;
+$desktop: 1120px;

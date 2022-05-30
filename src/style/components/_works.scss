@@ -14,32 +14,30 @@
 }
 
 .works__cards--mobile {
-  @media (min-width: $big-desktop) {
+  @media (min-width: $desktop) {
     display: none;
   }
 }
 
 .works__cards--desktop {
   display: none;
-  @media (min-width: $big-desktop) {
+  @media (min-width: $desktop) {
     max-width: 1590px;
     padding: 0 20px;
     margin: 0 auto;
     display: flex;
-    // justify-content: space-between;
     justify-content: center;
   }
 }
 
-.works__column--right {
-  @media (min-width: $desktop) {
-    margin-left: 140px;
-  }
+.works__column--center {
+  max-width: 140px;
+  width: 9%;
 }
 
 .works__card + .works__card {
   margin-top: 50px;
-  @media (min-width: $big-desktop) {
+  @media (min-width: $desktop) {
     margin-top: 100px;
   }
 }
