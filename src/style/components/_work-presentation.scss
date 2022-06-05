@@ -11,7 +11,10 @@
 .work-presentation__button{
   position: fixed;
   right: 0;
-  padding: 132px 100px 0 0;
+  padding: 10px 10px 0 0;
+  @media (min-width: $desktop) {
+    padding: 132px 100px 0 0;
+  }
 }
 
 .work-presentation__image-container{
