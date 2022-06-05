@@ -1,7 +1,7 @@
 <template>
   <div class="main">
-    <WorkPresentation />
     <Home />
+    <About />
     <Works />
   </div>
 </template>
@@ -9,15 +9,11 @@
 <script>
 import Home from '@/components/Home.vue';
 import Works from '@/components/Works.vue';
-import WorkPresentation from '@/components/WorkPresentation.vue';
+import About from '@/components/About.vue';
 
 export default {
   name: 'Main',
-  components: {
-    Home,
-    Works,
-    WorkPresentation,
-  },
+  components: { Home, Works, About },
   activated() {
     window.scrollTo({
       top: this.$store.state.scrollPosition,
