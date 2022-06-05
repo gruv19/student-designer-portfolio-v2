@@ -4,7 +4,7 @@
       <picture>
         <source
           :srcset="require('@/assets/images/main.jpg')"
-          media="(min-width: 767px)"
+          media="(min-width: 1120px)"
         />
         <img
           class="home__image"
