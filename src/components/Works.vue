@@ -67,7 +67,6 @@
 
 <script>
 
-import { fetchWorks } from '@/works';
 import Filters from './Filters.vue';
 import Card from './Card.vue';
 import Button from './Button.vue';
@@ -110,16 +109,16 @@ export default {
   },
   methods: {
     async loadMoreWorks() {
-      const loadedWorks = await fetchWorks(this.works.length, this.activeFilter);
+      const loadedWorks = await this.$store.dispatch('fetchWorks', { from: this.works.length, filter: this.activeFilter, count: 4 });
       this.works = [...this.works, ...loadedWorks];
     },
     async loadAnotherWorks(filterTitle) {
-      this.works = await fetchWorks(0, filterTitle);
+      this.works = await this.$store.dispatch('fetchWorks', { from: 0, filter: filterTitle, count: 4 });
     },
   },
   async mounted() {
     await this.$store.dispatch('fetchWorkCounts');
-    this.works = await fetchWorks(0, this.activeFilter);
+    this.works = await this.$store.dispatch('fetchWorks', { count: 4 });
   },
 };
 </script>
