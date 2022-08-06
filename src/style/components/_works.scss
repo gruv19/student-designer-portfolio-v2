@@ -7,7 +7,7 @@
 }
 
 .works__filters {
-  padding: 30px 10px 50px;
+  padding: 30px 20px 50px;
   @media (min-width: $desktop) {
     padding: 100px 10px 60px;
   }
@@ -36,7 +36,7 @@
 }
 
 .works__card + .works__card {
-  margin-top: 50px;
+  margin-top: 80px;
   @media (min-width: $desktop) {
     margin-top: 100px;
   }

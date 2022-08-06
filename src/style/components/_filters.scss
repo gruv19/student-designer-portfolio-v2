@@ -1,12 +1,12 @@
 .filters__list {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  @media (min-width: $desktop) {
+    justify-content: center;
+  }
 }
 
 .filters__item {
-  & + & {
-    margin-left: 40px;
-  }
   @media (min-width: $desktop) {
     & + & {
       margin-left: 40px;
