@@ -70,6 +70,22 @@ export default createStore({
     clearWorkImages({ commit }) {
       commit('setWorkImages', []);
     },
+    async saveNewType(context, data) {
+      const { title, description } = data;
+      let uri = '/api/createWorkTypes.php';
+      if (process.env.NODE_ENV === 'development') {
+        uri = 'http://design-student-vue-2/api/createWorkTypes.php';
+      }
+      const response = await fetch(uri, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ title, description }),
+      });
+      const result = await response.text();
+      return result;
+    },
   },
   modules: {
   },
