@@ -101,6 +101,23 @@ export default createStore({
       const result = await response.text();
       return result;
     },
+    async updateWorkType(context, data) {
+      const { title, description, condition } = data;
+      let uri = '/api/updateWorkType.php';
+      if (process.env.NODE_ENV === 'development') {
+        uri = 'http://design-student-vue-2/api/updateWorkType.php';
+      }
+      const response = await fetch(uri, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ title, description, condition }),
+      });
+      const result = await response.text();
+      console.log(result);
+      return result;
+    },
   },
   modules: {
   },
