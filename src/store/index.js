@@ -86,6 +86,21 @@ export default createStore({
       const result = await response.text();
       return result;
     },
+    async deleteWorkType(context, typeTitle) {
+      let uri = '/api/deleteWorkType.php';
+      if (process.env.NODE_ENV === 'development') {
+        uri = 'http://design-student-vue-2/api/deleteWorkType.php';
+      }
+      const response = await fetch(uri, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ title: typeTitle }),
+      });
+      const result = await response.text();
+      return result;
+    },
   },
   modules: {
   },
