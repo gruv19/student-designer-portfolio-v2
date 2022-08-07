@@ -47,8 +47,9 @@ export default {
     addType(type) {
       this.types.push(type);
     },
-    removeType() {
-
+    async removeType(typeTitle) {
+      await this.$store.dispatch('deleteWorkType', typeTitle);
+      this.types = this.types.filter((item) => item.title !== typeTitle);
     },
   },
   async mounted() {
