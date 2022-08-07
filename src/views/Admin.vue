@@ -8,9 +8,20 @@
           v-for="type in types"
           :key="type.title"
         >
-          {{ type.description }}
-          <button @click.prevent="">Редактировать</button>
-          <button @click.prevent="removeType(type.title)">Удалить</button>
+          <div v-if="type.state === 'read'" class="types__item-block">
+            {{ type.description }}
+            <button @click.prevent="showEditTypeForm(type.title)">Редактировать</button>
+            <button @click.prevent="removeType(type.title)">Удалить</button>
+          </div>
+          <div v-else class="types__item-block types__item-block--edit">
+            <TypesForm
+              @closeEdit="hideEditForm"
+              @typeEdited="updateType"
+              :oldTitle="type.title"
+              :oldDescription="type.description"
+              action="edit"
+            />
+          </div>
         </li>
         <li v-if="createFormState" class="types__item types__item--new">
           <TypesForm @close="hideCreateForm" @typeSaved="addType" />
@@ -44,16 +55,47 @@ export default {
     hideCreateForm() {
       this.createFormState = false;
     },
+    hideEditForm(typeTitle) {
+      this.types = this.types.map((item) => {
+        if (item.title === typeTitle) {
+          item.state = 'read'; // eslint-disable-line
+        }
+        return item;
+      });
+    },
     addType(type) {
       this.types.push(type);
+      this.hideCreateForm();
+    },
+    updateType(type) {
+      this.types = this.types.map((item) => {
+        if (item.title === type.condition) {
+          item.title = type.title; // eslint-disable-line
+          item.description = type.description; // eslint-disable-line
+          item.state = type.state; // eslint-disable-line
+        }
+        return item;
+      });
     },
     async removeType(typeTitle) {
       await this.$store.dispatch('deleteWorkType', typeTitle);
       this.types = this.types.filter((item) => item.title !== typeTitle);
     },
+    showEditTypeForm(typeTitle) {
+      this.types = this.types.map((item) => {
+        if (item.title === typeTitle) {
+          item.state = 'edit'; // eslint-disable-line
+        }
+        return item;
+      });
+    },
   },
   async mounted() {
     this.types = await this.$store.dispatch('fetchWorkTypes');
+    // this.types = this.types.map((item) => {
+    //   return { ...item, state: 'read' };
+    // });
+    this.types = this.types.map((item) => ({ ...item, state: 'read' }));
   },
 };
 </script>

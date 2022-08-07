@@ -35,8 +35,14 @@
         </span>
       </div>
     </div>
-    <button type="submit" @click.prevent="addNewCategory">Добавить</button>
-    <button type="reset" @click.prevent="close">Отменить</button>
+    <div v-if="action === 'edit'" class="buttons">
+      <button type="submit" @click.prevent="editCategory">Сохранить</button>
+      <button type="reset" @click.prevent="closeEdit">Отменить</button>
+    </div>
+    <div v-else class="buttons">
+      <button type="submit" @click.prevent="addNewCategory">Добавить</button>
+      <button type="reset" @click.prevent="close">Отменить</button>
+    </div>
   </form>
 </template>
 
@@ -49,6 +55,17 @@ const mustBeRus = (value) => /^[А-Я0-9]+$/i.test(value);
 
 export default {
   name: 'TypesForm',
+  props: {
+    oldTitle: {
+      type: String,
+    },
+    oldDescription: {
+      type: String,
+    },
+    action: {
+      type: String,
+    },
+  },
   data() {
     return {
       title: '',
@@ -84,6 +101,7 @@ export default {
         const newType = {
           title: this.title,
           description: this.description,
+          state: 'read',
         };
         await this.$store.dispatch('saveNewType', newType);
         this.$emit('typeSaved', newType);
@@ -94,9 +112,40 @@ export default {
         console.log(error);
       }
     },
+    async editCategory() {
+      if (this.title === this.oldTitle && this.description === this.oldDescription) {
+        this.closeEdit();
+      }
+      const isFormCorrect = await this.v$.$validate();
+      if (!isFormCorrect) {
+        return; // eslint-disable-line
+      }
+      try {
+        const editedWorkType = {
+          title: this.title,
+          description: this.description,
+          state: 'read',
+          condition: this.oldTitle,
+        };
+        await this.$store.dispatch('updateWorkType', editedWorkType);
+        this.$emit('typeEdited', editedWorkType);
+        this.title = '';
+        this.description = '';
+        this.v$.$reset();
+      } catch (error) {
+        console.log(error);
+      }
+    },
     close() {
       this.$emit('close');
     },
+    closeEdit() {
+      this.$emit('closeEdit', this.oldTitle);
+    },
+  },
+  mounted() {
+    this.title = this.oldTitle ? this.oldTitle : '';
+    this.description = this.oldDescription ? this.oldDescription : '';
   },
 };
 </script>
