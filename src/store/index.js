@@ -1,5 +1,6 @@
 import { Object } from 'core-js';
 import { createStore } from 'vuex';
+import vuejsStorage from 'vuejs-storage';
 
 export default createStore({
   state: {
@@ -159,6 +160,11 @@ export default createStore({
       return result.data.isAuth;
     },
   },
-  modules: {
-  },
+  plugins: [
+    vuejsStorage({
+      keys: ['userToken'],
+      namespace: 'ecohospital',
+      driver: vuejsStorage.drivers.sessionStorage,
+    }),
+  ],
 });
