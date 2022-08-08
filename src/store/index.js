@@ -7,6 +7,7 @@ export default createStore({
     workCounts: {},
     workImages: [],
     scrollPosition: 0,
+    userToken: {},
   },
   mutations: {
     setActiveFilter(state, filterName) {
@@ -20,6 +21,9 @@ export default createStore({
     },
     setScrollPosition(state, scrollPosition) {
       state.scrollPosition = scrollPosition;
+    },
+    setUserToken(state, userToken) {
+      state.userToken = userToken;
     },
   },
   actions: {
@@ -115,8 +119,44 @@ export default createStore({
         body: JSON.stringify({ title, description, condition }),
       });
       const result = await response.text();
-      console.log(result);
       return result;
+    },
+    async auth(context, data) {
+      const { email, password } = data;
+      let uri = '/api/login.php';
+      if (process.env.NODE_ENV === 'development') {
+        uri = 'http://design-student-vue-2/api/login.php';
+      }
+      const response = await fetch(uri, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+      const result = await response.json();
+      return result;
+    },
+    async isAuth(context) {
+      if (new Date(context.state.userToken.expireDateToken) < new Date()) {
+        return false;
+      }
+      let uri = '/api/isAuth.php';
+      if (process.env.NODE_ENV === 'development') {
+        uri = 'http://design-student-vue-2/api/isAuth.php';
+      }
+      const response = await fetch(uri, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ token: context.state.userToken.token }),
+      });
+      const result = await response.json();
+      if (result.status === 'error') {
+        return new Error(result.message);
+      }
+      return result.data.isAuth;
     },
   },
   modules: {
