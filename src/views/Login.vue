@@ -22,6 +22,7 @@ export default {
     async login() {
       const answer = await this.$store.dispatch('auth', { email: this.email, password: this.password });
       this.$store.commit('setUserToken', { token: answer.data.users_token, expireDateToken: answer.data.users_token_expire_date });
+      this.$router.push('/admin');
     },
   },
 };
