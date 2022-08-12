@@ -1,7 +1,7 @@
 .DS_Store
 node_modules
 /dist
-/public/api
+/public/api/config.php
 /public/work_images
 
 
