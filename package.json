@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "api": "xcopy /e/y C:\\Users\\ruslan\\Desktop\\projects\\design-student-vue-2\\public\\api C:\\OpenServer\\domains\\design-student-vue-2\\api"
   },
   "dependencies": {
     "@vuelidate/core": "^2.0.0-alpha.44",
