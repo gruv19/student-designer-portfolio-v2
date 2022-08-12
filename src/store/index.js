@@ -160,6 +160,16 @@ export default createStore({
       }
       return result.data.isAuth;
     },
+    async logout(context) {
+      const uri = '/api/logout.php';
+      const response = await fetch(uri);
+      const result = await response.json();
+      if (result.status === 'error') {
+        return new Error(result.message);
+      }
+      context.commit('setUserToken', {});
+      return result.data.logout;
+    },
   },
   plugins: [
     vuejsStorage({

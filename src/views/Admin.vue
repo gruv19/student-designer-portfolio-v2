@@ -32,6 +32,10 @@
         @click.prevent="showCreateForm"
         v-if="!createFormState"
       >Новая категория</button>
+      <button
+        class="types__logout"
+        @click.prevent="logout"
+      >Выйти</button>
     </div>
   </main>
 </template>
@@ -89,12 +93,15 @@ export default {
         return item;
       });
     },
+    async logout() {
+      const resp = await this.$store.dispatch('logout');
+      if (resp) {
+        this.$router.push('/login');
+      }
+    },
   },
   async mounted() {
     this.types = await this.$store.dispatch('fetchWorkTypes');
-    // this.types = this.types.map((item) => {
-    //   return { ...item, state: 'read' };
-    // });
     this.types = this.types.map((item) => ({ ...item, state: 'read' }));
   },
 };
