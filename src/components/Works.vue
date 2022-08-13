@@ -20,7 +20,13 @@
       </li>
     </ul>
     <div class="works__cards works__cards--desktop">
-      <div class="works__column works__column--left">
+      <transition-group
+        name="works__column--left"
+        tag="div" class="works__column works__column--left"
+        @before-enter="leftBeforeEnter"
+        @enter="leftEnter"
+        @leave="leftLeave"
+      >
         <div
           class="works__card"
           v-for="work in leftColumnWorks"
@@ -36,9 +42,15 @@
             :link="work.link"
           />
         </div>
-      </div>
+      </transition-group>
       <div class="works__column works__column--center"></div>
-      <div class="works__column works__column--right">
+      <transition-group
+        name="works__column--right"
+        tag="div" class="works__column works__column--right"
+        @before-enter="rightBeforeEnter"
+        @enter="rightEnter"
+        @leave="rightLeave"
+      >
         <div
           class="works__card"
           v-for="work in rightColumnWorks"
@@ -54,7 +66,7 @@
             :link="work.link"
           />
         </div>
-      </div>
+      </transition-group>
     </div>
     <div
       class="works__load-more-btn"
@@ -114,6 +126,36 @@ export default {
     },
     async loadAnotherWorks(filterTitle) {
       this.works = await this.$store.dispatch('fetchWorks', { from: 0, filter: filterTitle, count: 4 });
+    },
+    leftBeforeEnter(el) {
+      el.style.opacity = 0; // eslint-disable-line
+    },
+    leftEnter(el, done) {
+      el.style.animationName = 'enter-from-left'; // eslint-disable-line
+      el.style.animationDuration = '0.6s'; // eslint-disable-line
+      el.style.animationFillMode = 'forwards'; // eslint-disable-line
+      done();
+    },
+    leftLeave(el, done) {
+      el.style.animationName = 'leave-to-left'; // eslint-disable-line
+      el.style.animationDuration = '0.6s'; // eslint-disable-line
+      el.style.animationFillMode = 'forwards'; // eslint-disable-line
+      done();
+    },
+    rightBeforeEnter(el) {
+      el.style.opacity = 0; // eslint-disable-line
+    },
+    rightEnter(el, done) {
+      el.style.animationName = 'enter-from-right'; // eslint-disable-line
+      el.style.animationDuration = '0.6s'; // eslint-disable-line
+      el.style.animationFillMode = 'forwards'; // eslint-disable-line
+      done();
+    },
+    rightLeave(el, done) {
+      el.style.animationName = 'leave-to-right'; // eslint-disable-line
+      el.style.animationDuration = '0.6s'; // eslint-disable-line
+      el.style.animationFillMode = 'forwards'; // eslint-disable-line
+      done();
     },
   },
   async mounted() {
