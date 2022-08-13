@@ -1,5 +1,14 @@
 <template>
-  <a class="button" :href="link" :class="modifier ? `button--${modifier}` : '' ">{{ text }}</a>
+  <a
+    v-if="link"
+    class="button"
+    :href="link"
+    :class="modifier ? `button--${modifier}` : '' "
+  >{{ text }}</a>
+  <button
+    v-else class="button"
+    :class="modifier ? `button--${modifier}` : '' "
+  >{{ text }}</button>
 </template>
 
 <script>
@@ -8,7 +17,6 @@ export default {
   props: {
     link: {
       type: String,
-      required: true,
     },
     text: {
       type: String,
