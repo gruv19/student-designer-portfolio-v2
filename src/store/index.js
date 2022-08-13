@@ -31,7 +31,7 @@ export default createStore({
     async fetchWorkCounts({ commit }) {
       let uri = '/api/getWorksCount.php';
       if (process.env.NODE_ENV === 'development') {
-        uri = 'https://design-student-vue-2/api/getWorksCount.php';
+        uri = 'http://design-student-vue-2/api/getWorksCount.php';
       }
       const data = await fetch(uri);
       const result = await data.json();
@@ -46,7 +46,7 @@ export default createStore({
     async fetchWorkTypes() {
       let uri = '/api/getWorkTypes.php';
       if (process.env.NODE_ENV === 'development') {
-        uri = 'https://design-student-vue-2/api/getWorkTypes.php';
+        uri = 'http://design-student-vue-2/api/getWorkTypes.php';
       }
       const data = await fetch(uri);
       const result = await data.json();
@@ -55,7 +55,7 @@ export default createStore({
     async fetchWorkImages({ commit }, id) {
       let uri = `/api/getWorkData.php?work_id=${id}`;
       if (process.env.NODE_ENV === 'development') {
-        uri = `https://design-student-vue-2/api/getWorkData.php?work_id=${id}`;
+        uri = `http://design-student-vue-2/api/getWorkData.php?work_id=${id}`;
       }
       const data = await fetch(uri);
       const result = await data.json();
@@ -64,9 +64,9 @@ export default createStore({
     },
     async fetchWorks(context, queryParams) {
       const { from = 0, filter = 'all', count = 0 } = queryParams;
-      let uri = `/api/getWorks.php?from=${from}&filter=${filter}`;
+      let uri = `/api/getWorks.php?from=${from}&filter=${filter}&count=${count}`;
       if (process.env.NODE_ENV === 'development') {
-        uri = `https://design-student-vue-2/api/getWorks.php?from=${from}&filter=${filter}&count=${count}`;
+        uri = `http://design-student-vue-2/api/getWorks.php?from=${from}&filter=${filter}&count=${count}`;
       }
       const data = await fetch(uri);
       const result = await data.json();
@@ -79,7 +79,7 @@ export default createStore({
       const { title, description } = data;
       let uri = '/api/createWorkTypes.php';
       if (process.env.NODE_ENV === 'development') {
-        uri = 'https://design-student-vue-2/api/createWorkTypes.php';
+        uri = 'http://design-student-vue-2/api/createWorkTypes.php';
       }
       const response = await fetch(uri, {
         method: 'POST',
@@ -94,7 +94,7 @@ export default createStore({
     async deleteWorkType(context, typeTitle) {
       let uri = '/api/deleteWorkType.php';
       if (process.env.NODE_ENV === 'development') {
-        uri = 'https://design-student-vue-2/api/deleteWorkType.php';
+        uri = 'http://design-student-vue-2/api/deleteWorkType.php';
       }
       const response = await fetch(uri, {
         method: 'POST',
@@ -110,7 +110,7 @@ export default createStore({
       const { title, description, condition } = data;
       let uri = '/api/updateWorkType.php';
       if (process.env.NODE_ENV === 'development') {
-        uri = 'https://design-student-vue-2/api/updateWorkType.php';
+        uri = 'http://design-student-vue-2/api/updateWorkType.php';
       }
       const response = await fetch(uri, {
         method: 'POST',
@@ -126,7 +126,7 @@ export default createStore({
       const { email, password } = data;
       let uri = '/api/login.php';
       if (process.env.NODE_ENV === 'development') {
-        uri = 'https://design-student-vue-2/api/login.php';
+        uri = 'http://design-student-vue-2/api/login.php';
       }
       const response = await fetch(uri, {
         method: 'POST',
@@ -145,7 +145,7 @@ export default createStore({
       }
       let uri = '/api/isAuth.php';
       if (process.env.NODE_ENV === 'development') {
-        uri = 'https://design-student-vue-2/api/isAuth.php';
+        uri = 'http://design-student-vue-2/api/isAuth.php';
       }
       const response = await fetch(uri, {
         method: 'POST',
