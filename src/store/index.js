@@ -170,6 +170,18 @@ export default createStore({
       context.commit('setUserToken', {});
       return result.data.logout;
     },
+    async deleteWork(context, workId) {
+      const uri = '/api/deleteWork.php';
+      const response = await fetch(uri, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id: workId }),
+      });
+      const result = await response.json();
+      return result;
+    },
   },
   plugins: [
     vuejsStorage({

@@ -38,8 +38,9 @@ export default {
     edit(id) {
       console.log(id);
     },
-    remove(id) {
-      console.log(id);
+    async remove(workId) {
+      await this.$store.dispatch('deleteWork', workId);
+      this.works = this.works.filter((item) => item.id !== workId);
     },
   },
   async mounted() {
