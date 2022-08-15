@@ -182,6 +182,15 @@ export default createStore({
       const result = await response.json();
       return result;
     },
+    async getWorkById(context, workId) {
+      let uri = `/api/getWorkById.php?id=${workId}`;
+      if (process.env.NODE_ENV === 'development') {
+        uri = `http://design-student-vue-2/api/getWorkById.php?id=${workId}`;
+      }
+      const data = await fetch(uri);
+      const result = await data.json();
+      return result;
+    },
   },
   plugins: [
     vuejsStorage({
