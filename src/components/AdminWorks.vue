@@ -33,10 +33,10 @@ export default {
   },
   methods: {
     add() {
-      console.log('Новая');
+      this.$router.push('/create');
     },
-    edit(id) {
-      console.log(id);
+    edit(workId) {
+      this.$router.push(`/edit/${workId}`);
     },
     async remove(workId) {
       await this.$store.dispatch('deleteWork', workId);

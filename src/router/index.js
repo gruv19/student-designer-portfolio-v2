@@ -21,7 +21,21 @@ const routes = [
   {
     path: '/admin',
     name: 'Admin',
+    meta: { requiresAuth: true },
     component: () => import('../views/Admin.vue'),
+  },
+  {
+    path: '/create',
+    name: 'Create',
+    // meta: { requiresAuth: true },
+    component: () => import('../views/CreateUpdateWork.vue'),
+  },
+  {
+    path: '/edit/:id',
+    name: 'Edit',
+    // meta: { requiresAuth: true },
+    props: true,
+    component: () => import('../views/CreateUpdateWork.vue'),
   },
 ];
 
@@ -32,7 +46,7 @@ const router = createRouter({
 
 router.beforeEach(async (to, from) => { // eslint-disable-line
   const authState = await store.dispatch('isAuth');
-  if (authState === false && to.name === 'Admin') {
+  if (authState === false && to.meta.requiresAuth) {
     return { name: 'Login' };
   }
   if (authState && to.name === 'Login') {
