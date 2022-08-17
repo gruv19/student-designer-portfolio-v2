@@ -23,3 +23,20 @@
     max-height: 44px;
   }
 }
+
+.button--invert {
+  border: 2px solid $dark;
+  background-color: $favourite;
+  &:hover {
+    background-color: rgba($favourite, 0.7);
+  }
+}
+
+.button--cancel {
+  border: 2px solid $favourite;
+  background-color: $dark;
+  &:hover {
+    border: 2px solid rgba($favourite, 0.7);
+    background-color: $dark;
+  }
+}

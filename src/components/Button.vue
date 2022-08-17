@@ -6,7 +6,9 @@
     :class="modifier ? `button--${modifier}` : '' "
   >{{ text }}</a>
   <button
-    v-else class="button"
+    v-else
+    class="button"
+    :type="type"
     :class="modifier ? `button--${modifier}` : '' "
   >{{ text }}</button>
 </template>
@@ -24,6 +26,10 @@ export default {
     },
     modifier: {
       type: String,
+    },
+    type: {
+      type: String,
+      default: 'submit',
     },
   },
 };
