@@ -1,0 +1,15 @@
+.input {
+  @include font(400);
+  font-size: 1.8rem;
+  line-height: 2.5rem;
+  color: rgba($dark, 0.7);
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba($dark, 0.7);
+  min-width: 320px;
+  width: 100%;
+  &:focus {
+    border: 1px solid $favourite;
+    outline: none;
+  }
+}
