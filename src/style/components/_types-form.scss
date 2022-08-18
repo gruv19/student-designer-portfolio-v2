@@ -1,0 +1,40 @@
+.types-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr 40px 40px;
+  grid-column-gap: 30px;
+}
+.types-form__input {
+  position: relative;
+  &--title {}
+  &--description {}
+}
+.types-form__errors {
+  position: absolute;
+  display: grid;
+  top: 35px;
+  right: -20px;
+  background-color: white;
+  color: black;
+  padding: 5px 10px;
+  border-radius: 5px;
+  /* border: 1px solid red; */
+  font-size: 12px;
+  box-shadow: 0px 0px 5px 0px rgba(red, 0.75);
+}
+.types-form__error-text {
+
+}
+.types-form__button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  &--save {}
+  &--cancel {}
+}
+.types-form__icon {
+  width: 24px;
+  height: 24px;
+  fill: $favourite;
+  &--save {}
+  &--cancel {}
+}
