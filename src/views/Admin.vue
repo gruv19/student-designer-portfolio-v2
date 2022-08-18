@@ -1,15 +1,17 @@
 <template>
   <main class="admin">
-    <h1 class="admin__title">Панель администратора</h1>
+    <header class="admin__header">
+      <h1 class="admin__title">Панель администратора</h1>
+      <div class="admin__buttons">
+        <Button text="Выйти" @click.prevent="logout" />
+      </div>
+    </header>
     <section class="admin__admin-types">
       <AdminTypes />
     </section>
-    <section class="admin__admin-types">
+    <section class="admin__admin-works">
       <AdminWorks />
     </section>
-    <div class="admin__buttons">
-      <Button text="Выйти" @click.prevent="logout" />
-    </div>
   </main>
 </template>
 

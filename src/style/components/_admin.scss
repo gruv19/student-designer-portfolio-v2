@@ -1,0 +1,25 @@
+.admin {
+  max-width: $max-content;
+  margin: 0 auto;
+  padding: 30px 40px 0;
+}
+.admin__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+.admin__title {
+  font-family: Jost, sans-serif;
+  font-weight: 600;
+  text-align: center;
+  font-size: 5.2rem;
+  line-height: 7.5rem;
+  flex-grow: 1;
+}
+// .admin__buttons {
+// }
+// .admin__admin-types {
+// }
+// .admin__admin-works {
+// }
