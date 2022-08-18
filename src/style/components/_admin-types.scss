@@ -17,7 +17,9 @@
   grid-column-gap: 30px;
   align-items: center;
   // &--new {}
-  // &--edit {}
+  &--edit {
+    display: block;
+  }
 }
 .admin-types__name {
   font-family: Jost, sans-serif;
