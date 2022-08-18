@@ -1,0 +1,43 @@
+.admin-types {
+  display: flex;
+  flex-direction: column;
+}
+.admin-types__list {
+  margin-bottom: 30px;
+}
+.admin-types__item {
+  & + & {
+    margin-top: 20px;
+  }
+  // &--new {}
+}
+.admin-types__item-row {
+  display: grid;
+  grid-template-columns: 1fr 40px 40px;
+  grid-column-gap: 30px;
+  align-items: center;
+  // &--new {}
+  // &--edit {}
+}
+.admin-types__name {
+  font-family: Jost, sans-serif;
+  font-weight: 400;
+  font-size: 2rem;
+  line-height: 2.9rem;
+}
+.admin-types__button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  // &--edit {}
+  // &--remove {}
+}
+.admin-types__icon {
+  width: 24px;
+  height: 24px;
+  fill: $favourite;
+  // &--edit {}
+}
+.admin-types__create {
+  margin: 0 auto;
+}
