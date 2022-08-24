@@ -2,17 +2,17 @@
   <main class="create-update-work">
     <h1 class="create-update-work__title">Страница создания/редактирования работы</h1>
     <div class="create-update-work__form">
-      <WorkForm :id="id" />
+      <WorksForm :id="id" />
     </div>
   </main>
 </template>
 
 <script>
-import WorkForm from '@/components/WorkForm.vue';
+import WorksForm from '@/components/WorksForm.vue';
 
 export default {
   name: 'CreateUpdateWork',
-  components: { WorkForm },
+  components: { WorksForm },
   props: {
     id: {
       required: false,
