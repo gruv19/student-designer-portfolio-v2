@@ -191,6 +191,19 @@ export default createStore({
       const result = await data.json();
       return result;
     },
+    async saveNewWork(context, formData) {
+      let uri = '/api/createWork.php';
+      if (process.env.NODE_ENV === 'development') {
+        uri = 'http://design-student-vue-2/api/createWork.php';
+      }
+      const response = await fetch(uri, {
+        method: 'POST',
+        'Content-Type': 'multipart/form-data',
+        body: formData,
+      });
+      const result = await response.json();
+      return result;
+    },
   },
   plugins: [
     vuejsStorage({
