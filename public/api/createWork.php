@@ -27,6 +27,17 @@
   $task = $mysqli->real_escape_string($_POST['task']);
   $link = $mysqli->real_escape_string($_POST['link']);
 
+  if (!$title || !$subtitle || !$type || !$task) {
+    $answer = array('status' => 'error', 'message' => 'Not enough data!');
+    echo json_encode($answer);
+    die;
+  }
+  
+  if (!count($_FILES['mainImage']) || !count($_FILES['images'])) {
+    $answer = array('status' => 'error', 'message' => 'Not enough files!');
+    echo json_encode($answer);
+    die;
+  }
   // Upload mainImage
 
   $img_check = check_image($_FILES['mainImage']['name'], $_FILES['mainImage']['tmp_name'], $title);
