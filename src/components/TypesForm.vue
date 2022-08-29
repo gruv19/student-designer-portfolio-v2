@@ -11,9 +11,7 @@
         class="types-form__errors"
         v-if="v$.title.$dirty && v$.title.$error"
       >
-        <span class="types-form__error-text" v-for="e in v$.title.$errors" :key="e.$uid">
-          {{ e.$message }}
-        </span>
+        <InputErrors :errors="v$.title.$errors" />
       </div>
     </div>
     <div class="types-form__input types-form__input--description">
@@ -27,9 +25,7 @@
         class="types-form__errors"
         v-if="v$.description.$dirty && v$.description.$error"
       >
-        <span class="types-form__error-text" v-for="e in v$.description.$errors" :key="e.$uid">
-          {{ e.$message }}
-        </span>
+        <InputErrors :errors="v$.description.$errors" />
       </div>
     </div>
     <button
@@ -61,13 +57,14 @@
 import useVuelidate from '@vuelidate/core';
 import { helpers, required, maxLength } from '@vuelidate/validators';
 import BaseInput from '@/components/BaseInput.vue';
+import InputErrors from '@/components/InputErrors.vue';
 
 const mustBeEng = (value) => /^[A-Z0-9 ]+$/i.test(value);
 const mustBeRus = (value) => /^[А-ЯЁ0-9 ]+$/i.test(value);
 
 export default {
   name: 'TypesForm',
-  components: { BaseInput },
+  components: { BaseInput, InputErrors },
   props: {
     oldTitle: {
       type: String,
