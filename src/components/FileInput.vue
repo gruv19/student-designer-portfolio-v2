@@ -22,7 +22,7 @@
       :class="!files.length ? 'file-input__gragarea--empty' : ''"
     >
       <p
-        v-if="!files.length"
+        v-if="!imagesForRender.length"
         class="file-input__placeholder"
       >{{ plcHolder }}</p>
       <div
@@ -30,7 +30,7 @@
         class="file-input__preview"
         :class="multiple ? 'file-input__preview--multiple' : ''"
       >
-        <img v-for="img in images" :src="img" :key="img">
+        <img v-for="img in imagesForRender" :src="img" :key="img">
       </div>
     </div>
   </div>
@@ -48,12 +48,23 @@ export default {
       required: true,
       type: String,
     },
+    editedImages: {
+      type: Array,
+    },
   },
   data() {
     return {
       files: [],
       images: [],
     };
+  },
+  computed: {
+    imagesForRender() {
+      if (this.editedImages.length && !this.images.length) {
+        return this.editedImages;
+      }
+      return this.images;
+    },
   },
   methods: {
     changeFileInput() {

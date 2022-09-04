@@ -29,6 +29,7 @@
       <FileInput
         plcHolder="Перетащи сюда файл обложки или нажми, чтобы выбрать его"
         @onefileUpload="setMainImage"
+        :editedImages="work.mainImage ? [work.mainImage] : []"
       />
     </div>
     <div class="work-form__field work-form__field--files">
@@ -36,6 +37,7 @@
         multiple="true"
         plcHolder="Перетащи сюда файлы работы или нажми, чтобы выбрать их"
         @filesUpload="setWorkImages"
+        :editedImages="work.images"
       />
     </div>
     <div class="work-form__field work-form__field--textarea">
@@ -80,6 +82,8 @@ export default {
         images: [],
       },
       types: [],
+      mainImageChanged: false,
+      imagesChanged: false,
     };
   },
   methods: {
@@ -97,22 +101,36 @@ export default {
     },
     setMainImage(file) {
       this.work.mainImage = file;
+      this.mainImageChanged = true;
     },
     setWorkImages(files) {
       this.work.images = files;
+      this.imagesChanged = true;
     },
     async saveWork() {
       const workData = new FormData();
+      if (this.id) {
+        workData.append('id', this.id);
+      }
       workData.append('type', this.work.type);
       workData.append('title', this.work.title);
       workData.append('subtitle', this.work.subtitle);
-      workData.append('mainImage', this.work.mainImage);
+      if (this.mainImageChanged) {
+        workData.append('mainImage', this.work.mainImage);
+      }
       workData.append('task', this.work.task);
       workData.append('link', this.work.link);
-      this.work.images.forEach((img, i) => {
-        workData.append(`images[${i}]`, img, img.name);
-      });
-      const result = await this.$store.dispatch('saveNewWork', workData);
+      if (this.imagesChanged) {
+        this.work.images.forEach((img, i) => {
+          workData.append(`images[${i}]`, img, img.name);
+        });
+      }
+      let result = null;
+      if (this.id) {
+        result = await this.$store.dispatch('updateWork', workData);
+      } else {
+        result = await this.$store.dispatch('saveNewWork', workData);
+      }
       if (result.status === 'success') {
         this.$router.push('/admin');
       }
