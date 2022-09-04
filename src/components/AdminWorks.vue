@@ -1,7 +1,7 @@
 <template>
   <div class="admin-works">
     <ul class="admin-works__list">
-      <li class="admin-works__item" v-for="work in worksFull" :key="work.id">
+      <li class="admin-works__item" v-for="work in works" :key="work.id">
         <div class="admin-works__row">
           <p class="admin-works__title">{{ work.title }}</p>
           <p class="admin-works__type">{{ work.type }}</p>
@@ -50,15 +50,6 @@ export default {
       types: [],
     };
   },
-  computed: {
-    worksFull() {
-      return this.works.map((work) => {
-        const type = this.types.find((t) => t.title === work.type);
-        work.type = type.description; // eslint-disable-line
-        return work;
-      });
-    },
-  },
   methods: {
     add() {
       this.$router.push('/create');
@@ -74,6 +65,10 @@ export default {
   async mounted() {
     this.works = await this.$store.dispatch('fetchWorks', {});
     this.types = await this.$store.dispatch('fetchWorkTypes');
+    this.works.forEach((w) => {
+      const type = this.types.find((t) => t.title === w.type);
+      w.type = type.description; // eslint-disable-line
+    });
   },
 };
 </script>
