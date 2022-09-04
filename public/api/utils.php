@@ -1,4 +1,4 @@
-<?php 
+<?php
 function isAuth($mysqli, $token) {
   $sql = "SELECT users_id FROM users WHERE users_token='$token' AND users_token_expire_date > NOW();";
   $res = $mysqli->query($sql);
@@ -12,7 +12,7 @@ function isAuth($mysqli, $token) {
 
   if (!$row) {
     $answer = array('status' => 'fail', 'data' => ['isAuth' => false]);
-    return $answer; 
+    return $answer;
   }
 
   $answer = array('status' => 'success', 'data' => ['isAuth' => true]);
@@ -51,10 +51,10 @@ function check_image($img_name, $img_tmp_name, $work_title, $catalog = 0) {
     return $answer;
   }
   $answer = array(
-    'status' => 'success', 
+    'status' => 'success',
     'data' => [
-      'image_title' => $image_title, 
-      'image_file_type' => $image_file_type, 
+      'image_title' => $image_title,
+      'image_file_type' => $image_file_type,
       'target_file' => $target_file,
       'real_target_file' => $real_target_file
     ]);
@@ -69,5 +69,46 @@ function upload_image($img_name, $img_tmp_name, $target_file) {
     $answer = array('status' => 'error', 'message' => 'There was an error uploading your file ' . $img_name);
     return $answer;
   }
+}
+
+function remove_file($file) {
+  $answer = array('status' => 'error', 'message' => 'Problem with deleting file - ' . $file);
+  if (file_exists($file)) {
+    $res = unlink($file);
+    if ($res) {
+      $answer = array('status' => 'success', 'data' => ['message' => 'The file ' . $file . ' has been deleted.']);
+    }
+  }
+  return $answer;
+}
+
+function remove_main_image($mysqli, $id) {
+  $sql = "SELECT works_main_image FROM works WHERE works_id = $id;";
+  $res = $mysqli->query($sql);
+  if (!$res) {
+    $answer = array('status' => 'error', 'message' => 'Error request data from the database!');
+    return $answer;
+  }
+  $row = $res->fetch_assoc();
+  $file = $_SERVER['DOCUMENT_ROOT'] . $row['works_main_image'];
+  return remove_file($file);
+}
+
+function remove_work_images($mysqli, $id) {
+  $sql = "SELECT works_images FROM works WHERE works_id = $id;";
+  $res = $mysqli->query($sql);
+  if (!$res) {
+    $answer = array('status' => 'error', 'message' => 'Error request data from the database!');
+    return $answer;
+  }
+  $row = $res->fetch_assoc();
+  $images = json_decode($row['works_images']);
+  $results = array();
+  for ($i = 0; $i < count($images); $i++) {
+    $file = $_SERVER['DOCUMENT_ROOT'] . $images[$i];
+    remove_file($file);
+  }
+  $answer = array('status' => 'success', 'data' => ['message' => 'The files have been deleted.']);
+  return $answer;
 }
 ?>

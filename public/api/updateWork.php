@@ -34,6 +34,8 @@
   }
 
   if (count($_FILES['mainImage'])) {
+    remove_main_image($mysqli, $id);
+
     $img_check = check_image($_FILES['mainImage']['name'], $_FILES['mainImage']['tmp_name'], $title);
 
     if ($img_check['status'] !== 'success') {
@@ -52,6 +54,8 @@
   }
 
   if (count($_FILES['images'])) {
+    remove_work_images($mysqli, $id);
+
     $images_array = array();
     for ($i = 0; $i < count($_FILES['images']['name']); $i++) {
       $img_check = check_image($_FILES['images']['name'][$i], $_FILES['images']['tmp_name'][$i], $title, $i + 1);
@@ -69,6 +73,7 @@
       }
       array_push($images_array, $img_check['data']['target_file']);
     }
+
   }
 
   $sql = "UPDATE works SET works_type='$type', works_title='$title', works_subtitle='$subtitle', works_task='$task'";
@@ -90,7 +95,7 @@
     die;
   }
 
-  $answer = array('status' => 'success', 'data' => ['insert_id' => $mysqli->insert_id]);
+  $answer = array('status' => 'success', 'data' => ['updated_work_id' => $id]);
   echo json_encode($answer);
 
 ?>
