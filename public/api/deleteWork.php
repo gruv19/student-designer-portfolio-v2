@@ -20,6 +20,8 @@
   $_POST = json_decode(file_get_contents("php://input"), true);
   $work_id = $mysqli->real_escape_string($_POST['id']);
   if ($work_id) {
+    remove_main_image($mysqli, $work_id);
+    remove_work_images($mysqli, $work_id);
     $sql = sprintf("DELETE FROM works WHERE works_id=%s;", $work_id);
     $res = $mysqli->query($sql);
     if (!$res) {
