@@ -2,24 +2,19 @@
   header('Access-Control-Allow-Origin: *');
   header('Access-Control-Allow-Methods: GET, POST');
   header('Access-Control-Allow-Headers: Content-Type');
-  
+  header('Content-Type: application/json');
+
   require_once('./config.php');
   require_once('./utils.php');
-  
-  $mysqli = new mysqli(DBSERVER, DBUSER, DBPASSWORD, DBNAME);
 
-  if ($mysqli->connect_errno) {
-    $answer = array('status' => 'error', 'message' => 'No access to the database!');
-    echo json_encode($answer);
-    die;  
-  }
+  $mysqli = db_connect(DBSERVER, DBUSER, DBPASSWORD, DBNAME);
 
   $token = $_COOKIE['token'];
   $is_auth = isAuth($mysqli, $token);
   if ($is_auth['data']['isAuth']) {
+    http_response_code(403);
     $answer = array('status' => 'error', 'message' => 'Already logged');
-    echo json_encode($answer);
-    die;
+    die(json_encode($answer));
   }
 
   $_POST = json_decode(file_get_contents("php://input"), true);
@@ -31,17 +26,17 @@
   $res = $mysqli->query($sql);
 
   if (!$res) {
+    http_response_code(500);
     $answer = array('status' => 'error', 'message' => 'Error request data from the database!');
-    echo json_encode($answer);
-    die;
+    die(json_encode($answer));
   }
 
   $row = $res->fetch_assoc();
 
   if (!$row) {
+    http_response_code(401);
     $answer = array('status' => 'error', 'message' => 'Invalid email or password');
-    echo json_encode($answer);
-    die;    
+    die(json_encode($answer));
   }
 
   $id = $row['users_id'];
@@ -53,9 +48,9 @@
   $res = $mysqli->query($sql);
 
   if (!$res) {
+    http_response_code(500);
     $answer = array('status' => 'error', 'message' => 'Error update data in the database!');
-    echo json_encode($answer);
-    die;
+    die(json_encode($answer));
   }
 
   $answer = array('status' => 'succes', 'data' => ['users_id' => $id, 'users_token' => $token, 'users_email' => $email, 'users_token_expire_date' => $token_expire_date]);

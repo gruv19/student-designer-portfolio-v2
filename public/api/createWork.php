@@ -8,6 +8,7 @@
 
   $mysqli = new mysqli(DBSERVER, DBUSER, DBPASSWORD, DBNAME);
   if ($mysqli->connect_errno) {
+    http_response_code(503);
     $answer = array('status' => 'error', 'message' => 'No access to the database!');
     echo json_encode($answer);
     die;

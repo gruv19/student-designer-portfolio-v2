@@ -111,4 +111,14 @@ function remove_work_images($mysqli, $id) {
   $answer = array('status' => 'success', 'data' => ['message' => 'The files have been deleted.']);
   return $answer;
 }
+
+function db_connect($db_server, $db_user, $db_password, $db_name) {
+  $mysqli = @new mysqli($db_server, $db_user, $db_password, $db_name);
+  if ($mysqli->connect_errno) {
+    http_response_code(503);
+    $answer = array('status' => 'error', 'message' => 'No access to the database!');
+    die(json_encode($answer));
+  }
+  return $mysqli;
+}
 ?>

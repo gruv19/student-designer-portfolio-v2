@@ -1,22 +1,22 @@
 <?php
   header('Access-Control-Allow-Origin: *');
   header('Access-Control-Allow-Methods: GET, POST');
-  header("Access-Control-Allow-Headers: X-Requested-With");
-  
+  header('Access-Control-Allow-Headers: Content-Type');
+  header('Content-Type: application/json');
+
   require_once('./config.php');
-  
-  $mysqli = new mysqli(DBSERVER, DBUSER, DBPASSWORD, DBNAME);
-  if ($mysqli->connect_errno) {
-      header("HTTP/1.0 403 Forbidden");
-      die;
-  }
+  require_once('./utils.php');
+
+  $mysqli = db_connect(DBSERVER, DBUSER, DBPASSWORD, DBNAME);
+
   $work_id = $_GET['work_id'];
 
-  $sql = 'SELECT works_images FROM works WHERE works_id = "' . $work_id . '";';
+  $sql = "SELECT works_images FROM works WHERE works_id = '$work_id';";
   $res = $mysqli->query($sql);
   if (!$res) {
-    header("HTTP/1.0 403 Forbidden");
-    die;
+    http_response_code(500);
+    $answer = array('status' => 'error', 'message' => 'Error get data from the database!');
+    die(json_encode($answer));
   }
 
   $row = $res->fetch_assoc();

@@ -1,26 +1,23 @@
 <?php
   header('Access-Control-Allow-Origin: *');
   header('Access-Control-Allow-Methods: GET, POST');
-  header("Access-Control-Allow-Headers: Content-Type");
+  header('Access-Control-Allow-Headers: Content-Type');
   header('Content-Type: application/json');
 
   require_once('./config.php');
-  
-  $mysqli = new mysqli(DBSERVER, DBUSER, DBPASSWORD, DBNAME);
-  if ($mysqli->connect_errno) {
-    $answer = array('status' => 'error', 'message' => 'No access to the database!');
-    echo json_encode($answer);
-    die;
-  }
+  require_once('./utils.php');
+
+  $mysqli = db_connect(DBSERVER, DBUSER, DBPASSWORD, DBNAME);
+
   $id = $mysqli->real_escape_string($_GET['id']);
 
   $sql = "SELECT * FROM works WHERE works_id = '$id'";
 
   $res = $mysqli->query($sql);
   if (!$res) {
-    $answer = array('status' => 'error', 'message' => 'Error select data in the database!');
-    echo json_encode($answer);
-    die;
+    http_response_code(500);
+    $answer = array('status' => 'error', 'message' => 'Error get data from the database!');
+    die(json_encode($answer));
   }
 
   $response = array();
