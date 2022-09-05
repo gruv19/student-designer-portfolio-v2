@@ -9,6 +9,7 @@
     "api": "xcopy /e/y C:\\Users\\ruslan\\Desktop\\projects\\design-student-vue-2\\public\\api C:\\OpenServer\\domains\\design-student-vue-2\\api"
   },
   "dependencies": {
+    "@kyvg/vue3-notification": "^2.4.1",
     "@vuelidate/core": "^2.0.0-alpha.44",
     "@vuelidate/validators": "^2.0.0-alpha.31",
     "core-js": "^3.6.5",
