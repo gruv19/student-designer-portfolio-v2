@@ -1,6 +1,7 @@
 import { Object } from 'core-js';
 import { createStore } from 'vuex';
 import vuejsStorage from 'vuejs-storage';
+import { notify } from '@kyvg/vue3-notification';
 
 export default createStore({
   state: {
@@ -35,6 +36,9 @@ export default createStore({
       }
       const data = await fetch(uri);
       const result = await data.json();
+      if (!data.ok && result.status !== 'success') {
+        throw new Error(result.message);
+      }
       const workCounts = {};
       result.forEach((item) => {
         workCounts[item.type] = +item.count;
@@ -50,6 +54,9 @@ export default createStore({
       }
       const data = await fetch(uri);
       const result = await data.json();
+      if (!data.ok && result.status !== 'success') {
+        throw new Error(result.message);
+      }
       return result;
     },
     async fetchWorkImages({ commit }, id) {
@@ -59,6 +66,9 @@ export default createStore({
       }
       const data = await fetch(uri);
       const result = await data.json();
+      if (!data.ok && result.status !== 'success') {
+        throw new Error(result.message);
+      }
       const workImages = result.images ? JSON.parse(result.images) : [];
       commit('setWorkImages', workImages);
     },
@@ -70,6 +80,9 @@ export default createStore({
       }
       const data = await fetch(uri);
       const result = await data.json();
+      if (!data.ok && result.status !== 'success') {
+        throw new Error(result.message);
+      }
       return result;
     },
     clearWorkImages({ commit }) {
@@ -88,7 +101,10 @@ export default createStore({
         },
         body: JSON.stringify({ title, description }),
       });
-      const result = await response.text();
+      const result = await response.json();
+      if (!response.ok && result.status !== 'success') {
+        throw new Error(result.message);
+      }
       return result;
     },
     async deleteWorkType(context, typeTitle) {
@@ -103,7 +119,10 @@ export default createStore({
         },
         body: JSON.stringify({ title: typeTitle }),
       });
-      const result = await response.text();
+      const result = await response.json();
+      if (!response.ok && result.status !== 'success') {
+        throw new Error(result.message);
+      }
       return result;
     },
     async updateWorkType(context, data) {
@@ -119,7 +138,10 @@ export default createStore({
         },
         body: JSON.stringify({ title, description, condition }),
       });
-      const result = await response.text();
+      const result = await response.json();
+      if (!response.ok && result.status !== 'success') {
+        throw new Error(result.message);
+      }
       return result;
     },
     async auth(context, data) {
@@ -137,6 +159,9 @@ export default createStore({
         body: JSON.stringify({ email, password }),
       });
       const result = await response.json();
+      if (!response.ok && result.status !== 'success') {
+        throw new Error(result.message);
+      }
       return result;
     },
     async isAuth(context) {
@@ -180,6 +205,9 @@ export default createStore({
         body: JSON.stringify({ id: workId }),
       });
       const result = await response.json();
+      if (!response.ok && result.status !== 'success') {
+        throw new Error(result.message);
+      }
       return result;
     },
     async getWorkById(context, workId) {
@@ -189,6 +217,9 @@ export default createStore({
       }
       const data = await fetch(uri);
       const result = await data.json();
+      if (!data.ok && result.status !== 'success') {
+        throw new Error(result.message);
+      }
       return result;
     },
     async saveNewWork(context, formData) {
@@ -202,6 +233,9 @@ export default createStore({
         body: formData,
       });
       const result = await response.json();
+      if (!response.ok && result.status !== 'success') {
+        throw new Error(result.message);
+      }
       return result;
     },
     async updateWork(context, formData) {
@@ -215,13 +249,23 @@ export default createStore({
         body: formData,
       });
       const result = await response.json();
+      if (!response.ok && result.status !== 'success') {
+        throw new Error(result.message);
+      }
       return result;
+    },
+    showError(context, message) {
+      notify({
+        title: 'Error!',
+        text: message,
+        type: 'error',
+      });
     },
   },
   plugins: [
     vuejsStorage({
       keys: ['userToken'],
-      namespace: 'ecohospital',
+      namespace: 'user-token',
       driver: vuejsStorage.drivers.sessionStorage,
     }),
   ],
