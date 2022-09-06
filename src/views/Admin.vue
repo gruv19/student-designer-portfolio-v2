@@ -25,9 +25,13 @@ export default {
   components: { AdminTypes, Button, AdminWorks },
   methods: {
     async logout() {
-      const resp = await this.$store.dispatch('logout');
-      if (resp) {
-        this.$router.push('/login');
+      try {
+        const resp = await this.$store.dispatch('logout');
+        if (resp) {
+          this.$router.push('/login');
+        }
+      } catch (error) {
+        this.$store.dispatch('showError', error.message);
       }
     },
   },
