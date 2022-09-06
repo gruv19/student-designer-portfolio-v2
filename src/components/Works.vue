@@ -121,11 +121,19 @@ export default {
   },
   methods: {
     async loadMoreWorks() {
-      const loadedWorks = await this.$store.dispatch('fetchWorks', { from: this.works.length, filter: this.activeFilter, count: 4 });
-      this.works = [...this.works, ...loadedWorks];
+      try {
+        const loadedWorks = await this.$store.dispatch('fetchWorks', { from: this.works.length, filter: this.activeFilter, count: 4 });
+        this.works = [...this.works, ...loadedWorks];
+      } catch (error) {
+        this.$store.dispatch('showError', error.message);
+      }
     },
     async loadAnotherWorks(filterTitle) {
-      this.works = await this.$store.dispatch('fetchWorks', { from: 0, filter: filterTitle, count: 4 });
+      try {
+        this.works = await this.$store.dispatch('fetchWorks', { from: 0, filter: filterTitle, count: 4 });
+      } catch (error) {
+        this.$store.dispatch('showError', error.message);
+      }
     },
     leftBeforeEnter(el) {
       el.style.opacity = 0; // eslint-disable-line
@@ -159,8 +167,12 @@ export default {
     },
   },
   async mounted() {
-    await this.$store.dispatch('fetchWorkCounts');
-    this.works = await this.$store.dispatch('fetchWorks', { count: 4 });
+    try {
+      await this.$store.dispatch('fetchWorkCounts');
+      this.works = await this.$store.dispatch('fetchWorks', { count: 4 });
+    } catch (error) {
+      this.$store.dispatch('showError', error.message);
+    }
   },
 };
 </script>
