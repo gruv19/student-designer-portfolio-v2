@@ -125,22 +125,30 @@ export default {
           workData.append(`images[${i}]`, img, img.name);
         });
       }
-      let result = null;
-      if (this.id) {
-        result = await this.$store.dispatch('updateWork', workData);
-      } else {
-        result = await this.$store.dispatch('saveNewWork', workData);
-      }
-      if (result.status === 'success') {
-        this.$router.push('/admin');
+      try {
+        let result = null;
+        if (this.id) {
+          result = await this.$store.dispatch('updateWork', workData);
+        } else {
+          result = await this.$store.dispatch('saveNewWork', workData);
+        }
+        if (result.status === 'success') {
+          this.$router.push('/admin');
+        }
+      } catch (error) {
+        this.$store.dispatch('showError', error.message);
       }
     },
   },
   async mounted() {
-    if (this.id) {
-      this.work = await this.$store.dispatch('getWorkById', this.id);
+    try {
+      if (this.id) {
+        this.work = await this.$store.dispatch('getWorkById', this.id);
+      }
+      this.types = await this.$store.dispatch('fetchWorkTypes');
+    } catch (error) {
+      this.$store.dispatch('showError', error.message);
     }
-    this.types = await this.$store.dispatch('fetchWorkTypes');
   },
 };
 </script>
