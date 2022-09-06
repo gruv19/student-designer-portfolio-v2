@@ -79,9 +79,13 @@ export default {
       if (!isFormCorrect) {
         return; // eslint-disable-line
       }
-      const answer = await this.$store.dispatch('auth', { email: this.email, password: this.password });
-      this.$store.commit('setUserToken', { token: answer.data.users_token, expireDateToken: answer.data.users_token_expire_date });
-      this.$router.push('/admin');
+      try {
+        const answer = await this.$store.dispatch('auth', { email: this.email, password: this.password });
+        this.$store.commit('setUserToken', { token: answer.data.users_token, expireDateToken: answer.data.users_token_expire_date });
+        this.$router.push('/admin');
+      } catch (error) {
+        this.$store.dispatch('showError', error.message);
+      }
     },
     goBack() {
       this.email = '';
