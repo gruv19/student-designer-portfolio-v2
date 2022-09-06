@@ -58,17 +58,25 @@ export default {
       this.$router.push(`/edit/${workId}`);
     },
     async remove(workId) {
-      await this.$store.dispatch('deleteWork', workId);
-      this.works = this.works.filter((item) => item.id !== workId);
+      try {
+        await this.$store.dispatch('deleteWork', workId);
+        this.works = this.works.filter((item) => item.id !== workId);
+      } catch (error) {
+        this.$store.dispatch('showError', error.message);
+      }
     },
   },
   async mounted() {
-    this.works = await this.$store.dispatch('fetchWorks', {});
-    this.types = await this.$store.dispatch('fetchWorkTypes');
-    this.works.forEach((w) => {
-      const type = this.types.find((t) => t.title === w.type);
-      w.type = type.description; // eslint-disable-line
-    });
+    try {
+      this.works = await this.$store.dispatch('fetchWorks', {});
+      this.types = await this.$store.dispatch('fetchWorkTypes');
+      this.works.forEach((w) => {
+        const type = this.types.find((t) => t.title === w.type);
+        w.type = type.description; // eslint-disable-line
+      });
+    } catch (error) {
+      this.$store.dispatch('showError', error.message);
+    }
   },
 };
 </script>
