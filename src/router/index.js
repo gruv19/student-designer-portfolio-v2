@@ -27,15 +27,20 @@ const routes = [
   {
     path: '/create',
     name: 'Create',
-    // meta: { requiresAuth: true },
+    meta: { requiresAuth: true },
     component: () => import('../views/CreateUpdateWork.vue'),
   },
   {
     path: '/edit/:id',
     name: 'Edit',
-    // meta: { requiresAuth: true },
+    meta: { requiresAuth: true },
     props: true,
     component: () => import('../views/CreateUpdateWork.vue'),
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'pageNotFound',
+    component: () => import('../views/PageNotFound.vue'),
   },
 ];
 
