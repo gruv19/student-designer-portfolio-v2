@@ -32,7 +32,11 @@ export default {
     },
   },
   async mounted() {
-    await this.$store.dispatch('fetchWorkImages', this.$route.params.id);
+    try {
+      await this.$store.dispatch('fetchWorkImages', this.$route.params.id);
+    } catch (error) {
+      this.$store.dispatch('showError', error.message);
+    }
   },
 };
 </script>
