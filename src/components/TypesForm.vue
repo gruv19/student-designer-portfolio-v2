@@ -133,7 +133,7 @@ export default {
         this.description = '';
         this.v$.$reset();
       } catch (error) {
-        console.log(error);
+        this.$store.dispatch('showError', error.message);
       }
     },
     async editCategory() {
@@ -157,7 +157,7 @@ export default {
         this.description = '';
         this.v$.$reset();
       } catch (error) {
-        console.log(error);
+        this.$store.dispatch('showError', error.message);
       }
     },
     closeCreate() {
