@@ -93,8 +93,12 @@ export default {
       });
     },
     async removeType(typeTitle) {
-      await this.$store.dispatch('deleteWorkType', typeTitle);
-      this.types = this.types.filter((item) => item.title !== typeTitle);
+      try {
+        await this.$store.dispatch('deleteWorkType', typeTitle);
+        this.types = this.types.filter((item) => item.title !== typeTitle);
+      } catch (error) {
+        this.$store.dispatch('showError', error.message);
+      }
     },
     showEditTypeForm(typeTitle) {
       this.types = this.types.map((item) => {
@@ -106,8 +110,12 @@ export default {
     },
   },
   async mounted() {
-    this.types = await this.$store.dispatch('fetchWorkTypes');
-    this.types = this.types.map((item) => ({ ...item, state: 'read' }));
+    try {
+      this.types = await this.$store.dispatch('fetchWorkTypes');
+      this.types = this.types.map((item) => ({ ...item, state: 'read' }));
+    } catch (error) {
+      this.$store.dispatch('showError', error.message);
+    }
   },
 };
 </script>
