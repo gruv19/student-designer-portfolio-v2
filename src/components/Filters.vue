@@ -49,7 +49,11 @@ export default {
     },
   },
   async mounted() {
-    this.types = await this.$store.dispatch('fetchWorkTypes');
+    try {
+      this.types = await this.$store.dispatch('fetchWorkTypes');
+    } catch (error) {
+      this.$store.dispatch('showError', error.message);
+    }
   },
 };
 </script>
