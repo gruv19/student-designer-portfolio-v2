@@ -7,6 +7,7 @@
     @input="handleInput"
     :placeholder="plcHolder"
     :value="modelValue"
+    autocomplete="off"
   >
 </template>
 
@@ -36,7 +37,6 @@ export default {
   },
   methods: {
     handleInput(e) {
-      // console.log(e.target.value);
       this.$emit('update:modelValue', e.target.value);
     },
   },

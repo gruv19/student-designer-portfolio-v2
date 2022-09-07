@@ -1,15 +1,31 @@
 .input {
   @include font(400);
-  font-size: 1.8rem;
-  line-height: 2.5rem;
-  color: rgba($dark, 0.7);
-  padding: 12px 14px;
-  border-radius: 8px;
-  border: 1px solid rgba($dark, 0.7);
-  min-width: 320px;
+  font-size: 1.4rem;
+  line-height: 2rem;
+  color: $dark;
+  padding: 8px 16px 10px;
+  border-radius: 20px;
+  min-width: 280px;
   width: 100%;
-  &:focus {
-    border: 1px solid $favourite;
+  background-color: #FFFFFF;
+  transition: background-color 0.1s;
+  ::placeholder {
+    color: $gray;
+  }
+  &--valid {
+    border: 2px solid $favourite;
+    background-color: $favourite;
+    color: #FFFFFF;
+  }
+  &:focus,
+  &--valid:focus {
+    border: 2px solid $favourite;
+    background-color: #FFFFFF;
     outline: none;
+    color: $dark;
+  }
+  &--invalid,
+  &--invalid:focus {
+    border: 2px solid $error;
   }
 }
