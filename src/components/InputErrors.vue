@@ -1,8 +1,6 @@
 <template>
   <div class="input-errors">
-    <span class="input-errors__error" v-for="e in errors" :key="e.$uid">
-      {{ e.$message }}
-    </span>
+    {{ error.$message }}
   </div>
 </template>
 
@@ -10,7 +8,7 @@
 export default {
   name: 'InputErrors',
   props: {
-    errors: {
+    error: {
       required: true,
     },
   },
