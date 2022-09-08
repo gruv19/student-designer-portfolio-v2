@@ -1,40 +1,49 @@
 <template>
   <div class="login">
-    <h1 class="login__title">Кабинет администратора</h1>
+    <h1 class="login__title">Панель администратора</h1>
     <form action="" class="login__form" method="POST" @submit.prevent="login">
       <div class="login__input login__input--email">
+        <label class="login_label">Email</label>
         <BaseInput
           type="email"
           name="email"
           v-model="email"
           plcHolder="Введи email"
-          @blur="v$.email.$touch"
+          @blur="blur(v$.email, 'emailModifier')"
+          :modifier="emailModifier"
         />
         <div
           class="login__errors"
           v-if="v$.email.$dirty && v$.email.$error"
         >
-          <InputErrors :errors="v$.email.$errors" />
+          <InputErrors :error="v$.email.$errors[0]" />
         </div>
       </div>
       <div class="login__input login__input--password">
+        <label class="login_label">Пароль</label>
         <BaseInput
           type="password"
           name="password"
           v-model="password"
           plcHolder="Введи пароль"
-          @blur="v$.password.$touch"
+          @blur="blur(v$.password, 'passwordModifier')"
+          :modifier="passwordModifier"
         />
         <div
           class="login__errors"
           v-if="v$.password.$dirty && v$.password.$error"
         >
-          <InputErrors :errors="v$.password.$errors" />
+          <InputErrors :error="v$.password.$errors[0]" />
         </div>
       </div>
       <div class="login__buttons">
-        <Button text="Войти" modifier="invert" />
-        <Button text="Назад" modifier="cancel" type="reset" @click.prevent="goBack" />
+        <Button text="Войти" />
+        <Button
+          text="Вернуться на главную"
+          modifier="cancel"
+          type="reset"
+          @click.prevent="goBack"
+        />
       </div>
     </form>
   </div>
@@ -55,6 +64,8 @@ export default {
     return {
       email: '',
       password: '',
+      emailModifier: '',
+      passwordModifier: '',
     };
   },
   setup() {
@@ -90,7 +101,15 @@ export default {
     goBack() {
       this.email = '';
       this.password = '';
-      this.$router.go(-1);
+      this.$router.push('/');
+    },
+    blur(validation, modifier) {
+      validation.$touch();
+      if (validation.$error) {
+        this[modifier] = 'invalid'; // eslint-disable-line
+      } else {
+        this[modifier] = 'valid'; // eslint-disable-line
+      }
     },
   },
 };

@@ -7,15 +7,22 @@
   justify-content: center;
 }
 .login__title {
-  font-family: Jost, sans-serif;
-  font-weight: 600;
+  @include font(600);
   text-align: center;
   font-size: 5.2rem;
   line-height: 7.5rem;
 }
 .login__form {
   margin-top: 50px;
-  width: 400px;
+  width: 316px;
+}
+.login_label {
+  display: block;
+  margin-bottom: 5px;
+  @include font(600);
+  font-size: 1.2rem;
+  line-height: 1.7rem;
+  color: $favourite;
 }
 .login__input {
   position: relative;
@@ -24,10 +31,12 @@
   }
 }
 .login__buttons {
-  margin-top: 30px;
-  display: flex;
-  justify-content: space-between;
+  margin-top: 40px;
+  display: grid;
+  justify-content: center;
+  grid-gap: 40px;
 }
 .login__errors {
   position: absolute;
+  width: 100%;
 }
