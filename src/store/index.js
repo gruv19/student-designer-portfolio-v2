@@ -3,6 +3,7 @@ import vuejsStorage from 'vuejs-storage';
 import { notify } from '@kyvg/vue3-notification';
 import types from './modules/types';
 import works from './modules/works';
+import contacts from './modules/contacts';
 
 export default createStore({
   state: {
@@ -91,5 +92,6 @@ export default createStore({
   modules: {
     types,
     works,
+    contacts,
   },
 });
