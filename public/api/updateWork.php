@@ -73,7 +73,7 @@
 
   }
 
-  $sql = "UPDATE works SET works_type='$type', works_title='$title', works_subtitle='$subtitle', works_task='$task'";
+  $sql = "UPDATE works SET works_type='$type', works_title='$title', works_subtitle='$subtitle', works_task='$task', works_link='$link'";
 
   if (isset($main_image_file)) {
     $sql = $sql . ", works_main_image='$main_image_file'";
