@@ -22,7 +22,7 @@ export default {
   components: { Button },
   computed: {
     workImages() {
-      return this.$store.state.workImages;
+      return this.$store.state.works.workImages;
     },
   },
   methods: {

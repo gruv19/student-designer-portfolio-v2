@@ -98,7 +98,7 @@ export default {
       return this.$store.state.activeFilter;
     },
     worksCount() {
-      return this.$store.state.workCounts;
+      return this.$store.state.works.workCounts;
     },
     leftColumnWorks() {
       const workList = [];
