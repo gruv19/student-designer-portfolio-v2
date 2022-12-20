@@ -17,9 +17,19 @@
   line-height: 7.5rem;
   flex-grow: 1;
 }
-// .admin__buttons {
-// }
-// .admin__admin-types {
-// }
-// .admin__admin-works {
-// }
+.admin__tabs {
+  display: grid;
+  grid-template-columns: 180px 180px;
+  grid-column-gap: 40px;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+.admin__fade--enter-active,
+.admin__fade--leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.admin__fade--enter-from,
+.admin__fade--leave-to {
+  opacity: 0;
+}
