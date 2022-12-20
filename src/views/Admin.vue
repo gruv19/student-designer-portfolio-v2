@@ -6,11 +6,22 @@
         <Button text="Выйти" @click.prevent="logout" />
       </div>
     </header>
-    <section class="admin__admin-types">
-      <AdminTypes />
+    <section class="admin__tabs">
+      <Button
+        text="Разделы"
+        @click.prevent="switchTab('AdminTypes')"
+        :modifier="isActiveTab('AdminTypes') ? 'invert' : '' "
+      />
+      <Button
+        text="Проекты"
+        @click.prevent="switchTab('AdminWorks')"
+        :modifier="isActiveTab('AdminWorks') ? 'invert' : '' "
+      />
     </section>
     <section class="admin__admin-works">
-      <AdminWorks />
+      <transition name="admin__fade-" mode="out-in">
+        <component :is="activeTab"></component>
+      </transition>
     </section>
   </main>
 </template>
@@ -23,7 +34,18 @@ import Button from '@/components/Button.vue';
 export default {
   name: 'Admin',
   components: { AdminTypes, Button, AdminWorks },
+  data() {
+    return {
+      activeTab: 'AdminTypes',
+    };
+  },
   methods: {
+    switchTab(tabName) {
+      this.activeTab = tabName;
+    },
+    isActiveTab(tabName) {
+      return this.activeTab === tabName;
+    },
     async logout() {
       try {
         const resp = await this.$store.dispatch('logout');
