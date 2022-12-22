@@ -2,18 +2,29 @@ version: '3'
 
 services:
   frontend:
+    frontend:
     build: ./frontend
     restart: always
     ports:
       - '9000:9000'
+    volumes:
+      - /app/node_modules
+      - ./frontend:/app
   backend:
     build: ./backend
     restart: always
+    volumes:
+      - ./backend:/srv
     ports:
       - '80:80'
+    depends_on:
+     - database
   database:
     image: 'mysql:8.0'
     restart: always
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./db_init:/docker-entrypoint-initdb.d
   adminer:
     image: adminer
     restart: always
