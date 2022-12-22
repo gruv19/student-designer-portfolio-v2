@@ -1,9 +1,7 @@
 .DS_Store
-node_modules
-/dist
-/public/api/config.php
-/public/work_images
-
+/frontend/node_modules
+/frontend/dist
+/frontend/public/work_images
 
 # local env files
 .env.local
@@ -23,3 +21,7 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+# Env files
+
+*.env
