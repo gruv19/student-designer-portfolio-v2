@@ -50,6 +50,9 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from) => { // eslint-disable-line
+  if (to.name === 'Main') {
+    return; // eslint-disable-line
+  }
   const authState = await store.dispatch('isAuth');
   if (authState === false && to.meta.requiresAuth) {
     return { name: 'Login' };
