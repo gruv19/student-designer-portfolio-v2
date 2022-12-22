@@ -2,7 +2,6 @@ version: '3'
 
 services:
   frontend:
-    frontend:
     build: ./frontend
     restart: always
     ports:
@@ -19,12 +18,17 @@ services:
       - '80:80'
     depends_on:
      - database
+    env_file:
+      - ./common_db.env
   database:
     image: 'mysql:8.0'
     restart: always
     volumes:
       - mysql_data:/var/lib/mysql
       - ./db_init:/docker-entrypoint-initdb.d
+    env_file:
+      - ./root_db.env
+      - ./common_db.env
   adminer:
     image: adminer
     restart: always
