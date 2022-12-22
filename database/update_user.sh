@@ -22,3 +22,28 @@ mysql -u root -p${MYSQL_ROOT_PASSWORD} <<EOF
     MODIFY `work_types_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1362;
   COMMIT;
 EOF
+
+# create table contacts
+mysql -u root -p${MYSQL_ROOT_PASSWORD} <<EOF
+  use ${MYSQL_DATABASE};
+
+  CREATE TABLE `contacts` (
+    `contacts_id` int NOT NULL,
+    `contacts_title` varchar(255) NOT NULL,
+    `contacts_link` varchar(255) NOT NULL,
+    `contacts_show` tinyint(1) NOT NULL
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+  INSERT INTO `contacts` (`contacts_id`, `contacts_title`, `contacts_link`, `contacts_show`) VALUES
+    (1, 'Telegram', '', 1),
+    (2, 'Instagram', '', 0),
+    (3, 'E-mail', '', 1),
+    (4, 'Вконтакте', '', 1),
+    (5, 'Facebook', '', 0);
+
+  ALTER TABLE `contacts`
+    ADD PRIMARY KEY (`contacts_id`);
+
+  ALTER TABLE `contacts`
+    MODIFY `contacts_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+EOF
