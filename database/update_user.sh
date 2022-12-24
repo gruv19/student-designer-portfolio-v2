@@ -47,3 +47,25 @@ mysql -u root -p${MYSQL_ROOT_PASSWORD} <<EOF
   ALTER TABLE `contacts`
     MODIFY `contacts_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 EOF
+
+# create table users
+mysql -u root -p${MYSQL_ROOT_PASSWORD} <<EOF
+  use ${MYSQL_DATABASE};
+
+  CREATE TABLE `users` (
+    `users_id` int NOT NULL,
+    `users_email` varchar(100) NOT NULL,
+    `users_password` varchar(20) NOT NULL,
+    `users_token` varchar(255) DEFAULT NULL,
+    `users_token_expire_date` timestamp NULL DEFAULT NULL
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+  INSERT INTO `users` (`users_id`, `users_email`, `users_password`, `users_token`, `users_token_expire_date`) VALUES
+    (424, 'grv1992@yandex.ru', 'dsjR3eVHOGm2A', '5dd8d032aed47686', '2022-09-17 16:47:57');
+
+  ALTER TABLE `users`
+    ADD PRIMARY KEY (`users_id`);
+
+  ALTER TABLE `users`
+    MODIFY `users_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=425;
+EOF
