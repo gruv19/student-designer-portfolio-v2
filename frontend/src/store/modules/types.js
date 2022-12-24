@@ -1,12 +1,15 @@
+const BASE_URL = process.env.NODE_ENV === 'development' ? 'http://192.168.100.25' : '';
+
 export default {
   state: {},
   mutations: {},
   actions: {
     async fetchWorkTypes() {
-      let uri = '/api/getWorkTypes.php';
-      if (process.env.NODE_ENV === 'development') {
-        uri = 'http://design-student-vue-2/api/getWorkTypes.php';
-      }
+      const uri = `${BASE_URL}/getWorkTypes.php`;
+      // let uri = '/api/getWorkTypes.php';
+      // if (process.env.NODE_ENV === 'development') {
+      //   uri = 'http://design-student-vue-2/api/getWorkTypes.php';
+      // }
       const data = await fetch(uri);
       const result = await data.json();
       if (!data.ok && result.status !== 'success') {
@@ -16,10 +19,11 @@ export default {
     },
     async saveNewType(context, data) {
       const { title, description } = data;
-      let uri = '/api/createWorkTypes.php';
-      if (process.env.NODE_ENV === 'development') {
-        uri = 'http://design-student-vue-2/api/createWorkTypes.php';
-      }
+      const uri = `${BASE_URL}/createWorkTypes.php`;
+      // let uri = '/api/createWorkTypes.php';
+      // if (process.env.NODE_ENV === 'development') {
+      //   uri = 'http://design-student-vue-2/api/createWorkTypes.php';
+      // }
       const response = await fetch(uri, {
         method: 'POST',
         headers: {
@@ -34,10 +38,11 @@ export default {
       return result;
     },
     async deleteWorkType(context, typeTitle) {
-      let uri = '/api/deleteWorkType.php';
-      if (process.env.NODE_ENV === 'development') {
-        uri = 'http://design-student-vue-2/api/deleteWorkType.php';
-      }
+      const uri = `${BASE_URL}/deleteWorkType.php`;
+      // let uri = '/api/deleteWorkType.php';
+      // if (process.env.NODE_ENV === 'development') {
+      //   uri = 'http://design-student-vue-2/api/deleteWorkType.php';
+      // }
       const response = await fetch(uri, {
         method: 'POST',
         headers: {
@@ -53,10 +58,11 @@ export default {
     },
     async updateWorkType(context, data) {
       const { title, description, condition } = data;
-      let uri = '/api/updateWorkType.php';
-      if (process.env.NODE_ENV === 'development') {
-        uri = 'http://design-student-vue-2/api/updateWorkType.php';
-      }
+      const uri = `${BASE_URL}/updateWorkType.php`;
+      // let uri = '/api/updateWorkType.php';
+      // if (process.env.NODE_ENV === 'development') {
+      //   uri = 'http://design-student-vue-2/api/updateWorkType.php';
+      // }
       const response = await fetch(uri, {
         method: 'POST',
         headers: {
