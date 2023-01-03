@@ -19,7 +19,7 @@ export default {
 
     onMounted(async () => {
       try {
-        contacts.value = await store.dispatch('readContacts');
+        contacts.value = await store.dispatch('contactsRead');
       } catch (error) {
         store.dispatch('showError', error.message);
       }
