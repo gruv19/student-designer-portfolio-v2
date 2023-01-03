@@ -4,12 +4,14 @@ WORKDIR /app
 
 EXPOSE 9000
 
-COPY --chown=node:node package*.json ./
+COPY package*.json ./
 
-RUN npm install && chown -R node:node /app/node_modules
+RUN npm install
 
-USER node
+RUN mkdir node_modules/.cache && chmod -R 777 node_modules/.cache
 
-COPY --chown=node:node ./ ./
+USER root
+
+COPY ./ ./
 
 CMD [ "npm", "run", "serve" ]
