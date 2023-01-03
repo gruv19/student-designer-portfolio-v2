@@ -50,7 +50,7 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from) => { // eslint-disable-line
-  if (to.name === 'Main') {
+  if (to.name === 'Main' || to.name === 'pageNotFound') {
     return; // eslint-disable-line
   }
   const authState = await store.dispatch('isAuth');
