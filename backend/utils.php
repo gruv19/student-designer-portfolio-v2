@@ -1,5 +1,5 @@
 <?php
-function isAuth($mysqli, $token) {
+function is_auth($mysqli, $token) {
   $sql = "SELECT users_id FROM users WHERE users_token='$token' AND users_token_expire_date > NOW();";
   $res = $mysqli->query($sql);
 
