@@ -1,26 +1,26 @@
 <?php
-  header('Access-Control-Allow-Origin: *');
+  require_once('./config.php');
+  require_once('./utils.php');
+
+  header('Access-Control-Allow-Origin: ' . FRONTEND_HOST);
   header('Access-Control-Allow-Methods: GET, POST');
   header('Access-Control-Allow-Headers: Content-Type');
   header('Content-Type: application/json');
 
-  require_once('./config.php');
-  require_once('./utils.php');
-
   $mysqli = db_connect(DBSERVER, DBUSER, DBPASSWORD, DBNAME);
-
-  $token = $_COOKIE['token'];
-  $is_auth = isAuth($mysqli, $token);
-  if ($is_auth['data']['isAuth']) {
-    http_response_code(403);
-    $answer = array('status' => 'error', 'message' => 'Already logged');
-    die(json_encode($answer));
-  }
 
   $_POST = json_decode(file_get_contents("php://input"), true);
   $email = $mysqli->real_escape_string($_POST['email']);
   $password = $mysqli->real_escape_string($_POST['password']);
   $password = crypt(md5($password), SAULT);
+
+  $is_auth = is_auth($mysqli, $token);
+
+  if ($is_auth['data']['isAuth']) {
+    http_response_code(403);
+    $answer = array('status' => 'error', 'message' => 'Already logged');
+    die(json_encode($answer));
+  }
 
   $sql = "SELECT users_id, users_email FROM users WHERE users_email='$email' AND users_password='$password';";
   $res = $mysqli->query($sql);
@@ -54,6 +54,5 @@
   }
 
   $answer = array('status' => 'succes', 'data' => ['users_id' => $id, 'users_token' => $token, 'users_email' => $email, 'users_token_expire_date' => $token_expire_date]);
-  setcookie('token', $token, $time);
   echo json_encode($answer);
 ?>
