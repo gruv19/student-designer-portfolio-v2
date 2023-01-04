@@ -50,7 +50,7 @@ export default {
   },
   async mounted() {
     try {
-      this.types = await this.$store.dispatch('fetchWorkTypes');
+      this.types = await this.$store.dispatch('typesRead');
     } catch (error) {
       this.$store.dispatch('showError', error.message);
     }
