@@ -4,6 +4,9 @@ import { notify } from '@kyvg/vue3-notification';
 import types from './modules/types';
 import works from './modules/works';
 import contacts from './modules/contacts';
+import axios from 'axios';
+
+const BASE_URL = process.env.NODE_ENV === 'development' ? 'https://design-student.grv' : '';
 
 export default createStore({
   state: {
@@ -23,56 +26,47 @@ export default createStore({
     },
   },
   actions: {
-    async auth(context, data) {
+    async userLogin(context, data) {
       const { email, password } = data;
-      let uri = '/api/login.php';
-      if (process.env.NODE_ENV === 'development') {
-        uri = 'http://design-student-vue-2/api/login.php';
-      }
-      const response = await fetch(uri, {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
-      const result = await response.json();
-      if (!response.ok && result.status !== 'success') {
-        throw new Error(result.message);
-      }
+      const uri = `${BASE_URL}/user_login.php`;
+      const result = axios.post(uri, { email: email, password: password })
+        .then((response) => {
+          return response.data;
+        })
+        .catch((error) => {
+          const message =  error.hasOwnProperty('response') ? error.response.data.message : error.message;
+          throw new Error(message);
+        });
       return result;
     },
-    async isAuth(context) {
-      if (new Date(context.state.userToken.expireDateToken) < new Date()) {
+
+    async userIsAuth(context) {
+      const hasToken = context.state.userToken.hasOwnProperty('token');
+      const tokenExpired = hasToken ? (new Date(context.state.userToken.expireDateToken) < new Date()) : false;
+      if (tokenExpired) {
         return false;
       }
-      let uri = '/api/isAuth.php';
-      if (process.env.NODE_ENV === 'development') {
-        uri = 'http://design-student-vue-2/api/isAuth.php';
-      }
-      const response = await fetch(uri, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ token: context.state.userToken.token }),
-      });
-      const result = await response.json();
-      if (result.status === 'error') {
-        return new Error(result.message);
-      }
-      return result.data.isAuth;
+      const uri = `${BASE_URL}/user_is_auth.php`;
+      const result = axios.post(uri, { token: context.state.userToken.token })
+        .then((response) => {
+          return response.data.data.isAuth;
+        })
+        .catch((error) => {
+          throw new Error(error.message);
+        });
+      return result;
     },
     async logout(context) {
-      const uri = '/api/logout.php';
-      const response = await fetch(uri);
-      const result = await response.json();
-      if (result.status === 'error') {
-        return new Error(result.message);
-      }
-      context.commit('setUserToken', {});
-      return result.data.logout;
+      const uri = `${BASE_URL}/user_logout.php`;
+      const result = axios.post(uri, { token: context.state.userToken.token })
+        .then((response) => {
+          return response.data.data.logout;
+        })
+        .catch((error) => {
+          const message =  error.hasOwnProperty('response') ? error.response.data.message : error.message;
+          throw new Error(message);
+        });
+      return result;
     },
     showError(context, message) {
       notify({
