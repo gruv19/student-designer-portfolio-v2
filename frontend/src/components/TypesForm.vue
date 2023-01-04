@@ -127,7 +127,7 @@ export default {
           description: this.description,
           state: 'read',
         };
-        await this.$store.dispatch('saveNewType', newType);
+        await this.$store.dispatch('typesCreate', newType);
         this.$emit('typeSaved', newType);
         this.title = '';
         this.description = '';
@@ -151,7 +151,7 @@ export default {
           state: 'read',
           condition: this.oldTitle,
         };
-        await this.$store.dispatch('updateWorkType', editedWorkType);
+        await this.$store.dispatch('typesUpdate', editedWorkType);
         this.$emit('typeEdited', editedWorkType);
         this.title = '';
         this.description = '';

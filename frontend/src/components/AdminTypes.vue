@@ -94,7 +94,7 @@ export default {
     },
     async removeType(typeTitle) {
       try {
-        await this.$store.dispatch('deleteWorkType', typeTitle);
+        await this.$store.dispatch('typesDelete', typeTitle);
         this.types = this.types.filter((item) => item.title !== typeTitle);
       } catch (error) {
         this.$store.dispatch('showError', error.message);
@@ -111,7 +111,7 @@ export default {
   },
   async mounted() {
     try {
-      this.types = await this.$store.dispatch('fetchWorkTypes');
+      this.types = await this.$store.dispatch('typesRead');
       this.types = this.types.map((item) => ({ ...item, state: 'read' }));
     } catch (error) {
       this.$store.dispatch('showError', error.message);
