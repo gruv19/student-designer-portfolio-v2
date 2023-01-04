@@ -7,9 +7,14 @@
   header('Access-Control-Allow-Headers: Content-Type');
   header('Content-Type: application/json');
 
+  if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    return "ok";
+  }
+
   $mysqli = db_connect(DBSERVER, DBUSER, DBPASSWORD, DBNAME);
 
   $_POST = json_decode(file_get_contents("php://input"), true);
+
   $email = $mysqli->real_escape_string($_POST['email']);
   $password = $mysqli->real_escape_string($_POST['password']);
   $password = crypt(md5($password), SAULT);
