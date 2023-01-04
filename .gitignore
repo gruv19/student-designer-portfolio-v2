@@ -23,5 +23,8 @@ pnpm-debug.log*
 *.sw?
 
 # Env files
-
 *.env
+
+# Certificates
+*.key
+*.crt
