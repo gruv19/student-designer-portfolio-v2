@@ -16,10 +16,11 @@ services:
       - ./backend:/srv
     ports:
       - '80:80'
+      - '443:443'
     depends_on:
      - database
     env_file:
-      - ./common_db.env
+      - ./backend.env
   database:
     image: 'mysql:8.0'
     restart: always
@@ -27,8 +28,7 @@ services:
       - mysql_data:/var/lib/mysql
       - ./database:/docker-entrypoint-initdb.d
     env_file:
-      - ./root_db.env
-      - ./common_db.env
+      - ./db.env
   adminer:
     image: adminer
     restart: always
