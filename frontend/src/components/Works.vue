@@ -122,7 +122,7 @@ export default {
   methods: {
     async loadMoreWorks() {
       try {
-        const loadedWorks = await this.$store.dispatch('fetchWorks', { from: this.works.length, filter: this.activeFilter, count: 4 });
+        const loadedWorks = await this.$store.dispatch('worksRead', { from: this.works.length, filter: this.activeFilter, count: 4 });
         this.works = [...this.works, ...loadedWorks];
       } catch (error) {
         this.$store.dispatch('showError', error.message);
@@ -130,7 +130,7 @@ export default {
     },
     async loadAnotherWorks(filterTitle) {
       try {
-        this.works = await this.$store.dispatch('fetchWorks', { from: 0, filter: filterTitle, count: 4 });
+        this.works = await this.$store.dispatch('worksRead', { from: 0, filter: filterTitle, count: 4 });
       } catch (error) {
         this.$store.dispatch('showError', error.message);
       }
@@ -168,8 +168,8 @@ export default {
   },
   async mounted() {
     try {
-      await this.$store.dispatch('fetchWorkCounts');
-      this.works = await this.$store.dispatch('fetchWorks', { count: 4 });
+      await this.$store.dispatch('worksCount');
+      this.works = await this.$store.dispatch('worksRead', { count: 4 });
     } catch (error) {
       this.$store.dispatch('showError', error.message);
     }

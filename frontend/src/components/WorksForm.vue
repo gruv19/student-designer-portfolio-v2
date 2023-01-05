@@ -120,6 +120,7 @@ export default {
       }
       workData.append('task', this.work.task);
       workData.append('link', this.work.link);
+      workData.append('token', this.$store.state.userToken.token);
       if (this.imagesChanged) {
         this.work.images.forEach((img, i) => {
           workData.append(`images[${i}]`, img, img.name);
@@ -128,9 +129,9 @@ export default {
       try {
         let result = null;
         if (this.id) {
-          result = await this.$store.dispatch('updateWork', workData);
+          result = await this.$store.dispatch('worksUpdate', workData);
         } else {
-          result = await this.$store.dispatch('saveNewWork', workData);
+          result = await this.$store.dispatch('worksCreate', workData);
         }
         if (result.status === 'success') {
           this.$router.push('/admin');
@@ -143,9 +144,9 @@ export default {
   async mounted() {
     try {
       if (this.id) {
-        this.work = await this.$store.dispatch('getWorkById', this.id);
+        this.work = await this.$store.dispatch('worksReadOneById', this.id);
       }
-      this.types = await this.$store.dispatch('fetchWorkTypes');
+      this.types = await this.$store.dispatch('typesRead');
     } catch (error) {
       this.$store.dispatch('showError', error.message);
     }

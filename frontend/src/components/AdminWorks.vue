@@ -59,7 +59,7 @@ export default {
     },
     async remove(workId) {
       try {
-        await this.$store.dispatch('deleteWork', workId);
+        await this.$store.dispatch('worksDelete', workId);
         this.works = this.works.filter((item) => item.id !== workId);
       } catch (error) {
         this.$store.dispatch('showError', error.message);
@@ -68,8 +68,8 @@ export default {
   },
   async mounted() {
     try {
-      this.works = await this.$store.dispatch('fetchWorks', {});
-      this.types = await this.$store.dispatch('fetchWorkTypes');
+      this.works = await this.$store.dispatch('worksRead', {});
+      this.types = await this.$store.dispatch('typesRead');
       this.works.forEach((w) => {
         const type = this.types.find((t) => t.title === w.type);
         w.type = type.description; // eslint-disable-line
