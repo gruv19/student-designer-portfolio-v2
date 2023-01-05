@@ -53,8 +53,8 @@ router.beforeEach(async (to, from) => { // eslint-disable-line
   if (to.name === 'Main' || to.name === 'pageNotFound') {
     return; // eslint-disable-line
   }
-  const authState = await store.dispatch('isAuth');
-  if (authState === false && to.meta.requiresAuth) {
+  const authState = await store.dispatch('userIsAuth');
+  if (!authState && to.meta.requiresAuth) {
     return { name: 'Login' };
   }
   if (authState && to.name === 'Login') {
