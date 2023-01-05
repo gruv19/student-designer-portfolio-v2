@@ -13,6 +13,7 @@ services:
     build: ./backend
     restart: always
     volumes:
+      - srv_images:/srv/work_images
       - ./backend:/srv
     ports:
       - '80:80'
@@ -37,3 +38,4 @@ services:
 
 volumes:
   mysql_data:
+  srv_images:

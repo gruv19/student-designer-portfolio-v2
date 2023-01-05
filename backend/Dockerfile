@@ -9,6 +9,7 @@ EXPOSE 80
 COPY --chown=www-data:www-data *.php ./
 COPY sdp2.conf /etc/apache2/sites-available/
 COPY srv.* /etc/ssl/certs/
+RUN mkdir work_images && chown www-data:www-data work_images
 
 CMD [ "apache2ctl", "-D", "FOREGROUND" ]
 
