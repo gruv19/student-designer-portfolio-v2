@@ -1,4 +1,5 @@
-const BASE_URL = process.env.NODE_ENV === 'development' ? 'http://192.168.100.25' : '';
+const BASE_URL = process.env.NODE_ENV === 'development' ? 'https://design-student.grv' : '';
+import axios from 'axios';
 
 export default {
   state: {
@@ -17,114 +18,98 @@ export default {
     clearWorkImages({ commit }) {
       commit('setWorkImages', []);
     },
-    async fetchWorkCounts({ commit }) {
-      const uri = `${BASE_URL}/getWorksCount.php`;
-      // let uri = '/api/getWorksCount.php';
-      // if (process.env.NODE_ENV === 'development') {
-      //   uri = 'http://design-student-vue-2/api/getWorksCount.php';
-      // }
-      const data = await fetch(uri);
-      const result = await data.json();
-      if (!data.ok && result.status !== 'success') {
-        throw new Error(result.message);
-      }
-      const workCounts = {};
-      result.forEach((item) => {
-        workCounts[item.type] = +item.count;
-      });
-      const all = Object.values(workCounts).reduce((acc, curr) => acc + curr, 0);
-      workCounts.all = all;
-      commit('setWorkCounts', workCounts);
+    async worksCount({ commit }) {
+      const uri = `${BASE_URL}/works_count.php`;
+      const result = axios.get(uri)
+        .then((response) => {
+          const workCounts = {};
+          response.data.forEach((item) => {
+            workCounts[item.type] = +item.count;
+          });
+          const all = Object.values(workCounts).reduce((acc, curr) => acc + curr, 0);
+          workCounts.all = all;
+          commit('setWorkCounts', workCounts);
+        })
+        .catch((error) => {
+          throw new Error(error.message);
+        });
     },
-    async fetchWorkImages({ commit }, id) {
-      const uri = `${BASE_URL}/getWorkData.php?work_id=${id}`;
-      // let uri = `/api/getWorkData.php?work_id=${id}`;
-      // if (process.env.NODE_ENV === 'development') {
-      //   uri = `http://design-student-vue-2/api/getWorkData.php?work_id=${id}`;
-      // }
-      const data = await fetch(uri);
-      const result = await data.json();
-      if (!data.ok && result.status !== 'success') {
-        throw new Error(result.message);
-      }
-      const workImages = result.images ? JSON.parse(result.images) : [];
-      commit('setWorkImages', workImages);
+    async worksReadImages({ commit }, id) {
+      const uri = `${BASE_URL}/works_read_images.php?work_id=${id}`;
+      const result = axios.get(uri)
+        .then((response) => {
+          const workImages = response.data.images ? JSON.parse(response.data.images) : [];
+          commit('setWorkImages', workImages);
+        })
+        .catch((error) => {
+          throw new Error(error.message);
+        });
     },
-    async fetchWorks(context, queryParams) {
+    async worksRead(context, queryParams) {
       const { from = 0, filter = 'all', count = 0 } = queryParams;
-      const uri = `${BASE_URL}/getWorks.php?from=${from}&filter=${filter}&count=${count}`;
-      // let uri = `/api/getWorks.php?from=${from}&filter=${filter}&count=${count}`;
-      // if (process.env.NODE_ENV === 'development') {
-      //   uri = `http://design-student-vue-2/api/getWorks.php?from=${from}&filter=${filter}&count=${count}`;
-      // }
-      const data = await fetch(uri);
-      const result = await data.json();
-      if (!data.ok && result.status !== 'success') {
-        throw new Error(result.message);
-      }
+      const uri = `${BASE_URL}/works_read.php?from=${from}&filter=${filter}&count=${count}`;
+      const result = axios.get(uri)
+        .then((response) => {
+          return response.data;
+        })
+        .catch((error) => {
+          throw new Error(error.message);
+        });
       return result;
     },
-    async deleteWork(context, workId) {
-      const uri = `${BASE_URL}/deleteWork.php`;
-      // const uri = '/api/deleteWork.php';
-      const response = await fetch(uri, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ id: workId }),
-      });
-      const result = await response.json();
-      if (!response.ok && result.status !== 'success') {
-        throw new Error(result.message);
-      }
+    async worksDelete(context, workId) {
+      const uri = `${BASE_URL}/works_delete.php`;
+      const result = axios.post(uri, { id: workId, token: context.rootState.userToken.token })
+        .then((response) => {
+          return response.data;
+        })
+        .catch((error) => {
+          const message =  error.hasOwnProperty('response') ? error.response.data.message : error.message;
+          throw new Error(message);
+        });
       return result;
     },
-    async getWorkById(context, workId) {
-      const uri = `${BASE_URL}/getWorkById.php?id=${workId}`;
-      // let uri = `/api/getWorkById.php?id=${workId}`;
-      // if (process.env.NODE_ENV === 'development') {
-      //   uri = `http://design-student-vue-2/api/getWorkById.php?id=${workId}`;
-      // }
-      const data = await fetch(uri);
-      const result = await data.json();
-      if (!data.ok && result.status !== 'success') {
-        throw new Error(result.message);
-      }
+    async worksReadOneById(context, workId) {
+      const uri = `${BASE_URL}/works_read_one_by_id.php?id=${workId}`;
+      const result = axios.get(uri)
+        .then((response) => {
+          return response.data;
+        })
+        .catch((error) => {
+          throw new Error(error.message);
+        });
       return result;
     },
-    async saveNewWork(context, formData) {
-      const uri = `${BASE_URL}/createWork.php`;
-      // let uri = '/api/createWork.php';
-      // if (process.env.NODE_ENV === 'development') {
-      //   uri = 'http://design-student-vue-2/api/createWork.php';
-      // }
-      const response = await fetch(uri, {
-        method: 'POST',
-        'Content-Type': 'multipart/form-data',
-        body: formData,
-      });
-      const result = await response.json();
-      if (!response.ok && result.status !== 'success') {
-        throw new Error(result.message);
-      }
+    async worksCreate(context, formData) {
+      const uri = `${BASE_URL}/works_create.php`;
+      const result = axios.post(uri, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+        .then((response) => {
+          return response.data;
+        })
+        .catch((error) => {
+          const message =  error.hasOwnProperty('response') ? error.response.data.message : error.message;
+          throw new Error(message);
+        });
       return result;
     },
-    async updateWork(context, formData) {
-      const uri = `${BASE_URL}/updateWork.php`;
-      // let uri = '/api/updateWork.php';
-      // if (process.env.NODE_ENV === 'development') {
-      //   uri = 'http://design-student-vue-2/api/updateWork.php';
-      // }
-      const response = await fetch(uri, {
-        method: 'POST',
-        'Content-Type': 'multipart/form-data',
-        body: formData,
-      });
-      const result = await response.json();
-      if (!response.ok && result.status !== 'success') {
-        throw new Error(result.message);
-      }
+    async worksUpdate(context, formData) {
+      const uri = `${BASE_URL}/works_update.php`;
+      const result = axios.post(uri, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+        .then((response) => {
+          return response.data;
+        })
+        .catch((error) => {
+          const message =  error.hasOwnProperty('response') ? error.response.data.message : error.message;
+          throw new Error(message);
+        });
       return result;
     },
   },
