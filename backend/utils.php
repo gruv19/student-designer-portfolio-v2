@@ -90,7 +90,7 @@ function remove_main_image($mysqli, $id) {
     return $answer;
   }
   $row = $res->fetch_assoc();
-  $file = $_SERVER['DOCUMENT_ROOT'] . $row['works_main_image'];
+  $file = $_SERVER['DOCUMENT_ROOT'] . str_replace(BACKEND_HOST, "", $row['works_main_image']);
   return remove_file($file);
 }
 
@@ -105,7 +105,8 @@ function remove_work_images($mysqli, $id) {
   $images = json_decode($row['works_images']);
   $results = array();
   for ($i = 0; $i < count($images); $i++) {
-    $file = $_SERVER['DOCUMENT_ROOT'] . $images[$i];
+    // $file = $_SERVER['DOCUMENT_ROOT'] . $images[$i];
+    $file = $_SERVER['DOCUMENT_ROOT'] . str_replace(BACKEND_HOST, "", $images[$i]);
     remove_file($file);
   }
   $answer = array('status' => 'success', 'data' => ['message' => 'The files have been deleted.']);
