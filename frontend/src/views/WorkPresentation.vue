@@ -33,7 +33,7 @@ export default {
   },
   async mounted() {
     try {
-      await this.$store.dispatch('fetchWorkImages', this.$route.params.id);
+      await this.$store.dispatch('worksReadImages', this.$route.params.id);
     } catch (error) {
       this.$store.dispatch('showError', error.message);
     }
