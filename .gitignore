@@ -24,7 +24,3 @@ pnpm-debug.log*
 
 # Env files
 *.env
-
-# Certificates
-*.key
-*.crt

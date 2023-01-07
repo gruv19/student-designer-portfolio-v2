@@ -6,7 +6,7 @@ import works from './modules/works';
 import contacts from './modules/contacts';
 import axios from 'axios';
 
-const BASE_URL = process.env.NODE_ENV === 'development' ? 'https://design-student.grv' : '';
+const BASE_URL = process.env.NODE_ENV === 'development' ? 'http://design-student.grv' : '';
 
 export default createStore({
   state: {

@@ -31,12 +31,6 @@ FRONTEND_HOST=
 BACKEND_HOST=
 ```
 
-## Подготовка конфигурации apache
-Для разработки сгенерировать сертификаты для backend-сервиса:
-```sh
-sudo openssl req -x509 -nodes -days 1000 -newkey rsa:2048 -keyout <путь к папке с проектом>/backend/srv.key -out <путь к папке с проектом>/backend/srv.crt
-```
-
 ## Запуск проекта для разработки
 В терминале выполнить команду
 ```sh
