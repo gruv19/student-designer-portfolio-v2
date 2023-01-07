@@ -7,7 +7,7 @@ import types from './modules/types';
 import works from './modules/works';
 import contacts from './modules/contacts';
 
-const BASE_URL = process.env.NODE_ENV === 'development' ? 'http://design-student.grv' : '';
+const BASE_URL = process.env.NODE_ENV === 'development' ? 'http://sdp.backend:8082' : '';
 
 export default createStore({
   state: {

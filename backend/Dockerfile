@@ -4,10 +4,12 @@ RUN docker-php-ext-install mysqli
 
 WORKDIR /srv
 
-EXPOSE 80
+EXPOSE 8082
 
 COPY --chown=www-data:www-data *.php ./
 COPY sdp2.conf /etc/apache2/sites-available/
+
+RUN sed -i "s/Listen 80/Listen 8082/" /etc/apache2/ports.conf
 RUN mkdir work_images && chown www-data:www-data work_images
 
 CMD [ "apache2ctl", "-D", "FOREGROUND" ]
