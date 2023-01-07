@@ -1,10 +1,11 @@
 import { createStore } from 'vuex';
 import vuejsStorage from 'vuejs-storage';
 import { notify } from '@kyvg/vue3-notification';
+import axios from 'axios';
+
 import types from './modules/types';
 import works from './modules/works';
 import contacts from './modules/contacts';
-import axios from 'axios';
 
 const BASE_URL = process.env.NODE_ENV === 'development' ? 'http://design-student.grv' : '';
 
@@ -29,28 +30,28 @@ export default createStore({
     async userLogin(context, data) {
       const { email, password } = data;
       const uri = `${BASE_URL}/user_login.php`;
-      const result = axios.post(uri, { email: email, password: password })
-        .then((response) => {
-          return response.data;
-        })
+      const result = axios.post(uri, { email, password })
+        .then((response) => response.data)
         .catch((error) => {
-          const message =  error.hasOwnProperty('response') ? error.response.data.message : error.message;
+          const message = error.hasOwnProperty('response') // eslint-disable-line
+            ? error.response.data.message
+            : error.message;
           throw new Error(message);
         });
       return result;
     },
 
     async userIsAuth(context) {
-      const hasToken = context.state.userToken.hasOwnProperty('token');
-      const tokenExpired = hasToken ? (new Date(context.state.userToken.expireDateToken) < new Date()) : false;
+      const hasToken = context.state.userToken.hasOwnProperty('token'); // eslint-disable-line
+      const tokenExpired = hasToken
+        ? (new Date(context.state.userToken.expireDateToken) < new Date())
+        : false;
       if (tokenExpired) {
         return false;
       }
       const uri = `${BASE_URL}/user_is_auth.php`;
       const result = axios.post(uri, { token: context.state.userToken.token })
-        .then((response) => {
-          return response.data.data.isAuth;
-        })
+        .then((response) => response.data.data.isAuth)
         .catch((error) => {
           throw new Error(error.message);
         });
@@ -59,11 +60,11 @@ export default createStore({
     async logout(context) {
       const uri = `${BASE_URL}/user_logout.php`;
       const result = axios.post(uri, { token: context.state.userToken.token })
-        .then((response) => {
-          return response.data.data.logout;
-        })
+        .then((response) => response.data.data.logout)
         .catch((error) => {
-          const message =  error.hasOwnProperty('response') ? error.response.data.message : error.message;
+          const message = error.hasOwnProperty('response') // eslint-disable-line
+            ? error.response.data.message
+            : error.message;
           throw new Error(message);
         });
       return result;

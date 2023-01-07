@@ -1,5 +1,6 @@
-const BASE_URL = process.env.NODE_ENV === 'development' ? 'http://design-student.grv' : '';
 import axios from 'axios';
+
+const BASE_URL = process.env.NODE_ENV === 'development' ? 'http://design-student.grv' : '';
 
 export default {
   state: {
@@ -20,7 +21,7 @@ export default {
     },
     async worksCount({ commit }) {
       const uri = `${BASE_URL}/works_count.php`;
-      const result = axios.get(uri)
+      axios.get(uri)
         .then((response) => {
           const workCounts = {};
           response.data.forEach((item) => {
@@ -36,7 +37,7 @@ export default {
     },
     async worksReadImages({ commit }, id) {
       const uri = `${BASE_URL}/works_read_images.php?work_id=${id}`;
-      const result = axios.get(uri)
+      axios.get(uri)
         .then((response) => {
           const workImages = response.data.images ? JSON.parse(response.data.images) : [];
           commit('setWorkImages', workImages);
@@ -49,9 +50,7 @@ export default {
       const { from = 0, filter = 'all', count = 0 } = queryParams;
       const uri = `${BASE_URL}/works_read.php?from=${from}&filter=${filter}&count=${count}`;
       const result = axios.get(uri)
-        .then((response) => {
-          return response.data;
-        })
+        .then((response) => response.data)
         .catch((error) => {
           throw new Error(error.message);
         });
@@ -60,11 +59,11 @@ export default {
     async worksDelete(context, workId) {
       const uri = `${BASE_URL}/works_delete.php`;
       const result = axios.post(uri, { id: workId, token: context.rootState.userToken.token })
-        .then((response) => {
-          return response.data;
-        })
+        .then((response) => response.data)
         .catch((error) => {
-          const message =  error.hasOwnProperty('response') ? error.response.data.message : error.message;
+          const message = error.hasOwnProperty('response') // eslint-disable-line
+            ? error.response.data.message
+            : error.message;
           throw new Error(message);
         });
       return result;
@@ -72,9 +71,7 @@ export default {
     async worksReadOneById(context, workId) {
       const uri = `${BASE_URL}/works_read_one_by_id.php?id=${workId}`;
       const result = axios.get(uri)
-        .then((response) => {
-          return response.data;
-        })
+        .then((response) => response.data)
         .catch((error) => {
           throw new Error(error.message);
         });
@@ -83,15 +80,15 @@ export default {
     async worksCreate(context, formData) {
       const uri = `${BASE_URL}/works_create.php`;
       const result = axios.post(uri, formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        })
-        .then((response) => {
-          return response.data;
-        })
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+        .then((response) => response.data)
         .catch((error) => {
-          const message =  error.hasOwnProperty('response') ? error.response.data.message : error.message;
+          const message = error.hasOwnProperty('response') // eslint-disable-line
+            ? error.response.data.message
+            : error.message;
           throw new Error(message);
         });
       return result;
@@ -99,15 +96,15 @@ export default {
     async worksUpdate(context, formData) {
       const uri = `${BASE_URL}/works_update.php`;
       const result = axios.post(uri, formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        })
-        .then((response) => {
-          return response.data;
-        })
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+        .then((response) => response.data)
         .catch((error) => {
-          const message =  error.hasOwnProperty('response') ? error.response.data.message : error.message;
+          const message = error.hasOwnProperty('response') // eslint-disable-line
+            ? error.response.data.message
+            : error.message;
           throw new Error(message);
         });
       return result;

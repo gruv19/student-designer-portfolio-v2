@@ -55,10 +55,10 @@ router.beforeEach(async (to, from) => { // eslint-disable-line
   }
   const authState = await store.dispatch('userIsAuth');
   if (!authState && to.meta.requiresAuth) {
-    return { name: 'Login' };
+    return { name: 'Login' }; // eslint-disable-line
   }
   if (authState && to.name === 'Login') {
-    return { name: from.name };
+    return { name: from.name }; // eslint-disable-line
   }
 });
 
