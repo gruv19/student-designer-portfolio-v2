@@ -15,14 +15,23 @@ COPY ./ ./
 
 USER root
 
+CMD [ "npm", "run", "serve" ]
+
+
+# build stage
+FROM node:16.19-alpine as build
+
+WORKDIR /app
+
+COPY --from=development /app /app
+
 RUN  npm run build
 
-CMD [ "npm", "run", "serve" ]
 
 # production stage
 FROM nginx:1.23 as production
 
-COPY --from=development /app/dist /usr/share/nginx/html/
+COPY --from=build /app/dist /usr/share/nginx/html/
 RUN sed -i "s/index\s\sindex.html\sindex.htm;/index  index.html index.htm;\n\ttry_files \$uri \$uri\/ \/index.html;/" /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
