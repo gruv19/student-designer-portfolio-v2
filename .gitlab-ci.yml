@@ -1,6 +1,11 @@
 stages:
-  - sample
-step-deploy-prod:
-  stage: sample
+  - sample_one
+  - sample_two
+sample-for-passed:
+  stage: sample_one
   script:
     - grep -q "/frontend/node_modules" .gitignore
+sample-for-failed:
+  stage: sample_two
+  script:
+    - grep -q "/frontend/node_moduless" .gitignore
