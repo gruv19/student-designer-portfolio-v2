@@ -1,11 +1,8 @@
 stages:
-  - sample_one
-  - sample_two
-sample-for-passed:
-  stage: sample_one
+  - lint
+
+vue-cli-service-lint:
+  stage: lint
   script:
-    - grep -q "/frontend/node_modules" .gitignore
-sample-for-failed:
-  stage: sample_two
-  script:
-    - grep -q "/frontend/node_moduless" .gitignore
+    - docker-compose up -d --build
+    - docker-compose exec frontend npm run lint
