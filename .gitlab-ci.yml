@@ -1,0 +1,6 @@
+stages:
+  - sample
+step-deploy-prod:
+  stage: sample
+  script:
+    - grep -q "/frontend/node_modules" .gitignore
