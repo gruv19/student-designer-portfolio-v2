@@ -1,5 +1,6 @@
 stages:
   - lint
+  - delpoy
 
 vue-cli-service-lint:
   stage: lint
@@ -12,7 +13,23 @@ vue-cli-service-lint:
     - echo MYSQL_DATABASE=$MYSQL_DATABASE > db.env && echo MYSQL_USER=$MYSQL_USER >> db.env
     - echo MYSQL_PASSWORD=$MYSQL_PASSWORD >> db.env && echo LANG=$LANG >> db.env
     - echo MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD >> db.env
-    - cat backend.env
-    - cat db.env
     - docker-compose up -d --build
     - docker-compose exec frontend npm run lint
+    - docker-compose down
+
+deploy-to-prod:
+  stage: deploy
+    script:
+    - touch backend.env
+    - echo MYSQL_DATABASE=$MYSQL_DATABASE > backend.env && echo MYSQL_USER=$MYSQL_USER >> backend.env
+    - echo MYSQL_PASSWORD=$MYSQL_PASSWORD >> backend.env && echo SAULT=$SAULT >> backend.env
+    - echo FRONTEND_HOST=$FRONTEND_HOST_PROD >> backend.env && echo BACKEND_HOST=$BACKEND_HOST >> backend.env
+    - touch db.env
+    - echo MYSQL_DATABASE=$MYSQL_DATABASE > db.env && echo MYSQL_USER=$MYSQL_USER >> db.env
+    - echo MYSQL_PASSWORD=$MYSQL_PASSWORD >> db.env && echo LANG=$LANG >> db.env
+    - echo MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD >> db.env
+    - docker-compose -f docker-compose.prod.yml down
+    - docker-compose -f docker-compose.prod.yml up -d --build
+  only:
+    - master
+  when: manual
