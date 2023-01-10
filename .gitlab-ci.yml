@@ -19,7 +19,7 @@ vue-cli-service-lint:
 
 deploy-to-prod:
   stage: deploy
-    script:
+  script:
     - touch backend.env
     - echo MYSQL_DATABASE=$MYSQL_DATABASE > backend.env && echo MYSQL_USER=$MYSQL_USER >> backend.env
     - echo MYSQL_PASSWORD=$MYSQL_PASSWORD >> backend.env && echo SAULT=$SAULT >> backend.env
@@ -30,4 +30,6 @@ deploy-to-prod:
     - echo MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD >> db.env
     - docker-compose -f docker-compose.prod.yml down
     - docker-compose -f docker-compose.prod.yml up -d --build
+  only:
+    - master
   when: manual
