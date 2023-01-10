@@ -30,6 +30,4 @@ deploy-to-prod:
     - echo MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD >> db.env
     - docker-compose -f docker-compose.prod.yml down
     - docker-compose -f docker-compose.prod.yml up -d --build
-  only:
-    - master
   when: manual
