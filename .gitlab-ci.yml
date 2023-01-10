@@ -1,6 +1,6 @@
 stages:
   - lint
-  - delpoy
+  - deploy
 
 vue-cli-service-lint:
   stage: lint
