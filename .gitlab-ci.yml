@@ -4,5 +4,6 @@ stages:
 vue-cli-service-lint:
   stage: lint
   script:
-    - docker-compose up -d --build
-    - docker-compose exec frontend npm run lint
+    - echo $HELLO_VAR
+    - echo " "
+    - echo "$HELLO_VAR"
