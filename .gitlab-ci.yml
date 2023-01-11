@@ -15,6 +15,7 @@ vue-cli-service-lint:
     - echo MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD >> db.env
     - docker-compose up -d --build
     - docker-compose exec frontend npm run lint
+  after_script:
     - docker-compose down
 
 deploy-to-prod:
