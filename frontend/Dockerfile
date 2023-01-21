@@ -31,7 +31,7 @@ RUN  npm run build
 # production stage
 FROM nginx:1.23 as production
 
-COPY --from=build /app/dist /usr/share/nginx/html/
-RUN sed -i "s/index\s\sindex.html\sindex.htm;/index  index.html index.htm;\n\ttry_files \$uri \$uri\/ \/index.html;/" /etc/nginx/conf.d/default.conf
+COPY --from=build --chown=nginx:nginx /app/dist /app
+COPY --from=build /app/default.conf /etc/nginx/conf.d/
 
-EXPOSE 80
+EXPOSE 8081
