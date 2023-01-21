@@ -105,7 +105,6 @@ function remove_work_images($mysqli, $id) {
   $images = json_decode($row['works_images']);
   $results = array();
   for ($i = 0; $i < count($images); $i++) {
-    // $file = $_SERVER['DOCUMENT_ROOT'] . $images[$i];
     $file = $_SERVER['DOCUMENT_ROOT'] . str_replace(BACKEND_HOST, "", $images[$i]);
     remove_file($file);
   }
