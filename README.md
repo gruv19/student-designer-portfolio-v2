@@ -34,5 +34,11 @@ BACKEND_HOST=
 ## Запуск проекта для разработки
 В терминале выполнить команду
 ```sh
-docker-compose up -d
+docker-compose up -d --build
+```
+
+## Запуск проекта для деплоя
+В терминале выполнить команду
+```sh
+docker-compose -f docker-compose.prod.yml up -d --build
 ```
