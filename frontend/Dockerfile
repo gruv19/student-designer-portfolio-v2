@@ -11,6 +11,8 @@ RUN npm install
 
 RUN mkdir node_modules/.cache && chmod -R 777 node_modules/.cache
 
+RUN echo "VUE_APP_BACKEND_HOST=${BACKEND_HOST}" > .env
+
 COPY ./ ./
 
 USER root
