@@ -1,8 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = process.env.NODE_ENV === 'development'
-  ? 'http://sdp.backend:8082'
-  : 'http://sdp.backend:8082';
+const BACKEND_HOST = process.env.VUE_APP_BACKEND_HOST;
 
 export default {
   state: {
@@ -22,7 +20,7 @@ export default {
       commit('setWorkImages', []);
     },
     async worksCount({ commit }) {
-      const uri = `${BASE_URL}/works_count.php`;
+      const uri = `${BACKEND_HOST}/works_count.php`;
       axios.get(uri)
         .then((response) => {
           const workCounts = {};
@@ -38,7 +36,7 @@ export default {
         });
     },
     async worksReadImages({ commit }, id) {
-      const uri = `${BASE_URL}/works_read_images.php?work_id=${id}`;
+      const uri = `${BACKEND_HOST}/works_read_images.php?work_id=${id}`;
       axios.get(uri)
         .then((response) => {
           const workImages = response.data.images ? JSON.parse(response.data.images) : [];
@@ -50,7 +48,7 @@ export default {
     },
     async worksRead(context, queryParams) {
       const { from = 0, filter = 'all', count = 0 } = queryParams;
-      const uri = `${BASE_URL}/works_read.php?from=${from}&filter=${filter}&count=${count}`;
+      const uri = `${BACKEND_HOST}/works_read.php?from=${from}&filter=${filter}&count=${count}`;
       const result = axios.get(uri)
         .then((response) => response.data)
         .catch((error) => {
@@ -59,7 +57,7 @@ export default {
       return result;
     },
     async worksDelete(context, workId) {
-      const uri = `${BASE_URL}/works_delete.php`;
+      const uri = `${BACKEND_HOST}/works_delete.php`;
       const result = axios.post(uri, { id: workId, token: context.rootState.userToken.token })
         .then((response) => response.data)
         .catch((error) => {
@@ -71,7 +69,7 @@ export default {
       return result;
     },
     async worksReadOneById(context, workId) {
-      const uri = `${BASE_URL}/works_read_one_by_id.php?id=${workId}`;
+      const uri = `${BACKEND_HOST}/works_read_one_by_id.php?id=${workId}`;
       const result = axios.get(uri)
         .then((response) => response.data)
         .catch((error) => {
@@ -80,7 +78,7 @@ export default {
       return result;
     },
     async worksCreate(context, formData) {
-      const uri = `${BASE_URL}/works_create.php`;
+      const uri = `${BACKEND_HOST}/works_create.php`;
       const result = axios.post(uri, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -96,7 +94,7 @@ export default {
       return result;
     },
     async worksUpdate(context, formData) {
-      const uri = `${BASE_URL}/works_update.php`;
+      const uri = `${BACKEND_HOST}/works_update.php`;
       const result = axios.post(uri, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',

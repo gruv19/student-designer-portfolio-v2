@@ -1,15 +1,13 @@
 import axios from 'axios';
 
-const BASE_URL = process.env.NODE_ENV === 'development'
-  ? 'http://sdp.backend:8082'
-  : 'http://sdp.backend:8082';
+const BACKEND_HOST = process.env.VUE_APP_BACKEND_HOST;
 
 export default {
   state: {},
   mutations: {},
   actions: {
     async typesRead() {
-      const uri = `${BASE_URL}/types_read.php`;
+      const uri = `${BACKEND_HOST}/types_read.php`;
       const result = axios.get(uri)
         .then((response) => response.data)
         .catch((error) => {
@@ -19,7 +17,7 @@ export default {
     },
     async typesCreate(context, data) {
       const { title, description } = data;
-      const uri = `${BASE_URL}/types_create.php`;
+      const uri = `${BACKEND_HOST}/types_create.php`;
       const result = axios.post(uri, {
         title,
         description,
@@ -35,7 +33,7 @@ export default {
       return result;
     },
     async typesDelete(context, typeTitle) {
-      const uri = `${BASE_URL}/types_delete.php`;
+      const uri = `${BACKEND_HOST}/types_delete.php`;
       const result = axios.post(uri, {
         title: typeTitle,
         token: context.rootState.userToken.token,
@@ -51,7 +49,7 @@ export default {
     },
     async typesUpdate(context, data) {
       const { title, description, condition } = data;
-      const uri = `${BASE_URL}/types_update.php`;
+      const uri = `${BACKEND_HOST}/types_update.php`;
       const result = axios.post(uri, {
         title,
         description,

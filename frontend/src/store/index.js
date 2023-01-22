@@ -7,9 +7,7 @@ import types from './modules/types';
 import works from './modules/works';
 import contacts from './modules/contacts';
 
-const BASE_URL = process.env.NODE_ENV === 'development'
-  ? 'http://sdp.backend:8082'
-  : 'http://sdp.backend:8082';
+const BACKEND_HOST = process.env.VUE_APP_BACKEND_HOST;
 
 export default createStore({
   state: {
@@ -31,7 +29,7 @@ export default createStore({
   actions: {
     async userLogin(context, data) {
       const { email, password } = data;
-      const uri = `${BASE_URL}/user_login.php`;
+      const uri = `${BACKEND_HOST}/user_login.php`;
       const result = axios.post(uri, { email, password })
         .then((response) => response.data)
         .catch((error) => {
@@ -51,7 +49,7 @@ export default createStore({
       if (tokenExpired) {
         return false;
       }
-      const uri = `${BASE_URL}/user_is_auth.php`;
+      const uri = `${BACKEND_HOST}/user_is_auth.php`;
       const result = axios.post(uri, { token: context.state.userToken.token })
         .then((response) => response.data.data.isAuth)
         .catch((error) => {
@@ -60,7 +58,7 @@ export default createStore({
       return result;
     },
     async logout(context) {
-      const uri = `${BASE_URL}/user_logout.php`;
+      const uri = `${BACKEND_HOST}/user_logout.php`;
       const result = axios.post(uri, { token: context.state.userToken.token })
         .then((response) => response.data.data.logout)
         .catch((error) => {
