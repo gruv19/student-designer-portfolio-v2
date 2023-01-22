@@ -6,6 +6,8 @@ services:
       context: ./frontend
       target: development
     restart: always
+    env_file:
+      - ./frontend.env
     ports:
       - '9000:9000'
     volumes:
