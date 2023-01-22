@@ -13,6 +13,8 @@ vue-cli-service-lint:
     - echo MYSQL_DATABASE=$MYSQL_DATABASE > db.env && echo MYSQL_USER=$MYSQL_USER >> db.env
     - echo MYSQL_PASSWORD=$MYSQL_PASSWORD >> db.env && echo LANG=$LANG >> db.env
     - echo MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD >> db.env
+    - touch frontend.env
+    - echo BACKEND_HOST=$BACKEND_HOST_FOR_FRONTEND_DEV > frontend.env
     - docker-compose up -d --build
     - docker-compose exec frontend npm run lint
   after_script:
